@@ -15,6 +15,9 @@ plugins {
     id 'application'
 }
 
+project.group="dev.inmo"
+project.version="$version"
+
 repositories {
     jcenter()
     mavenCentral()
@@ -29,5 +32,5 @@ dependencies {
 }
 
 application {
-    mainClassName = 'telegram_bot.AppKt'
+    mainClassName = 'dev.inmo.plagubot.AppKt'
 }

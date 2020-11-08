@@ -1,4 +1,4 @@
-package telegram_bot
+package dev.inmo.plagubot
 
 import dev.inmo.tgbotapi.extensions.api.bot.getMe
 import dev.inmo.tgbotapi.extensions.api.telegramBot
