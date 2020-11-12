@@ -10,8 +10,8 @@ apply from: "publish.gradle"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_runtime_version"
+    api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_runtime_version"
 
-    implementation "dev.inmo:tgbotapi:$tgbotapi_version"
-    implementation "dev.inmo:micro_utils.repos.exposed:$microutils_version"
+    api "dev.inmo:tgbotapi:$tgbotapi_version"
+    api "dev.inmo:micro_utils.repos.exposed:$microutils_version"
 }
