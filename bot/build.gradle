@@ -1,0 +1,37 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "org.jetbrains.kotlin.kapt"
+    id 'application'
+}
+
+project.group="$group"
+project.version="$version"
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_runtime_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.exposed:exposed-jdbc:$kotlin_exposed_version"
+
+    implementation "dev.inmo:tgbotapi:$tgbotapi_version"
+    implementation "dev.inmo:micro_utils.repos.exposed:$microutils_version"
+
+    implementation "com.github.matfax.klassindex:library:$klassindex_version"
+    kapt "com.github.matfax.klassindex:processor:$klassindex_version"
+    implementation "org.xerial:sqlite-jdbc:$sqlite_version"
+
+    implementation project(":plugin")
+}
+
+application {
+    mainClassName = 'dev.inmo.plagubot.AppKt'
+}
+
+kapt {
+    arguments {
+        arg("com.github.matfax.klassindex.IndexSubclasses", "dev.inmo.plagubot.Plugin")
+    }
+}
+

@@ -1,0 +1,16 @@
+{
+  "database": {
+    "url": "jdbc:sqlite:file:test?mode=memory&cache=shared IT IS JUST EXAMPLE",
+    "driver": "org.sqlite.JDBC",
+    "username": "OPTIONAL username",
+    "password": "OPTIONAL password",
+    "initAutomatically": false
+  },
+  "botToken": "1234567890:ABCDEFGHIJKLMNOP_qrstuvwxyz12345678",
+  "plugins": [
+    {
+      "type": "Hello",
+      "parameter": "Example"
+    }
+  ]
+}

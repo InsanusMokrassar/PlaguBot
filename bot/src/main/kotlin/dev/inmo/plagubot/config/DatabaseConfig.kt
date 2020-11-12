@@ -9,7 +9,7 @@ import java.sql.Connection
 
 @Serializable
 data class DatabaseConfig(
-    val url: String,
+    val url: String = "jdbc:sqlite:file:test?mode=memory&cache=shared",
     val driver: String = JDBC::class.qualifiedName!!,
     val username: String = "",
     val password: String = "",
@@ -36,13 +36,5 @@ data class DatabaseConfig(
         if (initAutomatically) {
             database // init database
         }
-    }
-
-    @Deprecated(
-        "Deprecated due to the replacement by lateinit database field with the same functionality",
-        ReplaceWith("database")
-    )
-    fun connect(): Database {
-        return database
     }
 }

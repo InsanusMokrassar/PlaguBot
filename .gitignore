@@ -10,4 +10,5 @@ build/
 out/
 
 local.properties
+config.json
 secret.gradle

@@ -1,1 +1,3 @@
+include ":bot", ":plugin"
+
 rootProject.name = 'plagubot'
