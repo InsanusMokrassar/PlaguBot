@@ -1,3 +1,8 @@
-include ":bot", ":plugin"
+String[] toInclude = [":bot", ":plugin"]
 
 rootProject.name = 'plagubot'
+
+toInclude.each {
+    include (it)
+    project(it).name = "${rootProject.name}${it.replace(":", ".")}"
+}

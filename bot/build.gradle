@@ -24,7 +24,7 @@ dependencies {
     kapt "com.github.matfax.klassindex:processor:$klassindex_version"
     implementation "org.xerial:sqlite-jdbc:$sqlite_version"
 
-    implementation project(":plugin")
+    implementation project(":plagubot.plugin")
 }
 
 application {
