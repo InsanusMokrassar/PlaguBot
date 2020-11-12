@@ -4,7 +4,7 @@
 
 You can create private repository using
 [this template](https://github.com/InsanusMokrassar/PlaguBotBotTemplate/generate). Then just follow its
-[README](https://github.com/InsanusMokrassar/PlaguBotBotTemplate/blob/master/README.md).
+[readme](https://insanusmokrassar.github.io/PlaguBotBotTemplate/).
 
 ## For developers
 
