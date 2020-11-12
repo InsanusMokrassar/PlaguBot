@@ -41,4 +41,6 @@ suspend fun main(args: Array<String>) {
             }
         }
     }
+
+    scope.coroutineContext.job.join()
 }
