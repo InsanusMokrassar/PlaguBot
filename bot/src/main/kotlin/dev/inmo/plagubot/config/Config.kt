@@ -36,7 +36,7 @@ internal val configSerialFormat: StringFormat
 
 @Serializable
 data class Config(
-    val plugins: List<@Contextual Plugin>,
+    val plugins: List<Plugin>,
     val database: DatabaseConfig,
     val botToken: String
 )
