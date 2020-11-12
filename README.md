@@ -15,4 +15,4 @@ You can create your bot using
 | Plugin version: | [![Download](https://api.bintray.com/packages/insanusmokrassar/PlaguBot/plagubot.plugin/images/download.svg)](https://bintray.com/insanusmokrassar/PlaguBot/plagubot.plugin/_latestVersion) |
 
 That is a set of libraries for plagubots. Look at the
-[PlaguBot template](https://github.com/InsanusMokrassar/PlaguBotPluginTemplate) to find how to create your bot.
+[PlaguBot Plugin template](https://insanusmokrassar.github.io/PlaguBotPluginTemplate/) to find how to create your bot.
