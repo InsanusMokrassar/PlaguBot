@@ -2,8 +2,7 @@
 
 ## For users
 
-| Template: | [![Use template](badges/use_template.svg)](https://github.com/InsanusMokrassar/PlaguBotBotTemplate/generate) |
-|-----------|-----------------------------------------------------------------------------------------------------------------|
+Template: [![Use template](badges/use_template.svg)](https://github.com/InsanusMokrassar/PlaguBotBotTemplate/generate)
 
 You can create your bot using
 [this template](https://insanusmokrassar.github.io/PlaguBotBotTemplate/) by following of its instructions
