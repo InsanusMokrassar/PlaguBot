@@ -12,29 +12,15 @@ data class DatabaseConfig(
     val url: String = "jdbc:sqlite:file:test?mode=memory&cache=shared",
     val driver: String = JDBC::class.qualifiedName!!,
     val username: String = "",
-    val password: String = "",
-    val initAutomatically: Boolean = true
+    val password: String = ""
 ) {
     @Transient
-    private lateinit var _database: Database
-    val database: Database
-        get() = try {
-            _database
-        } catch (e: UninitializedPropertyAccessException) {
-            Database.connect(
-                url,
-                driver,
-                username,
-                password
-            ).also {
-                _database = it
-                it.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
-            }
-        }
-
-    init {
-        if (initAutomatically) {
-            database // init database
-        }
+    val database: Database = Database.connect(
+        url,
+        driver,
+        username,
+        password
+    ).also {
+        it.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
     }
 }
