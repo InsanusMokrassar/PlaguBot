@@ -9,6 +9,7 @@ project.group="$group"
 project.version="$version"
 
 apply from: "publish.gradle"
+apply from: "${rootProject.projectDir.path}${File.separator}github_release.gradle"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
