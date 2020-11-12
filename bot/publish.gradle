@@ -22,7 +22,7 @@ bintray {
     override = true
     
     pkg {
-        repo = "PlaguBot Bot"
+        repo = "PlaguBot"
         name = "${project.name}"
         vcsUrl = "https://github.com/InsanusMokrassar/PlaguBot"
         licenses = ["Apache-2.0"]
