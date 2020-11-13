@@ -11,17 +11,10 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
 import java.io.File
 
-/**
- * This method by default expects one argument in [args] field: path to config
- */
-@InternalSerializationApi
-suspend fun main(args: Array<String>) {
-    val (configPath) = args
-    val file = File(configPath)
-    val config = configSerialFormat.decodeFromString(Config.serializer(), file.readText())
-
-    val scope = CoroutineScope(Dispatchers.Default)
-
+suspend inline fun initPlaguBot(
+    config: Config,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) {
     val bot = telegramBot(config.botToken)
 
     bot.startGettingFlowsUpdatesByLongPolling(scope = scope) {
@@ -41,6 +34,18 @@ suspend fun main(args: Array<String>) {
             }
         }
     }
+}
 
+/**
+ * This method by default expects one argument in [args] field: path to config
+ */
+@InternalSerializationApi
+suspend fun main(args: Array<String>) {
+    val (configPath) = args
+    val file = File(configPath)
+    val config = configSerialFormat.decodeFromString(Config.serializer(), file.readText())
+
+    val scope = CoroutineScope(Dispatchers.Default)
+    initPlaguBot(config, scope)
     scope.coroutineContext.job.join()
 }

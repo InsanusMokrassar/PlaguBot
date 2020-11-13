@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.3
+
+* `Bot`:
+    * New function `initPlaguBot` which actually will launch the bot
+
 ## 0.0.2
 
 * `Versions`
