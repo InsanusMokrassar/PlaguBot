@@ -9,7 +9,3 @@ jobs:
   include:
     - stage: build
       script: ./gradlew build -s
-    - state: test
-      script: ./gradlew allTests
-    - state: dokka
-      script: ./gradlew dokkaHtml
