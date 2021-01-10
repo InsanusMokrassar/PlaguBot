@@ -5,6 +5,9 @@
 * `Versions`
   * `tgbotapi`: `0.30.10` -> `0.31.0`
   * `microutils`: `0.4.11` -> `0.4.16`
+* `Plugin`
+  * New method `BehaviourContext#invoke`
+    * Old method `invoke` has been deprecated
 
 ## 0.0.5
 

@@ -1,6 +1,7 @@
 package dev.inmo.plagubot
 
 import dev.inmo.tgbotapi.bot.TelegramBot
+import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
 import dev.inmo.tgbotapi.types.BotCommand
 import dev.inmo.tgbotapi.updateshandlers.FlowsUpdatesFilter
 import kotlinx.coroutines.CoroutineScope
@@ -19,13 +20,20 @@ interface Plugin {
      */
     suspend fun getCommands(): List<BotCommand> = emptyList()
 
-    /**
-     * This method (usually) will be invoked just one time in the whole application.
-     */
+    @Deprecated("Override other method with receiver BehaviourContext")
     suspend operator fun invoke(
         bot: TelegramBot,
         database: Database,
         updatesFilter: FlowsUpdatesFilter,
         scope: CoroutineScope
-    )
+    ) {}
+
+    /**
+     * This method (usually) will be invoked just one time in the whole application.
+     */
+    suspend operator fun BehaviourContext.invoke(
+        database: Database
+    ) {
+        invoke(bot, database, flowsUpdatesFilter, scope)
+    }
 }

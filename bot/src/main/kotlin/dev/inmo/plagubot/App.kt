@@ -5,6 +5,7 @@ import dev.inmo.plagubot.config.Config
 import dev.inmo.plagubot.config.configSerialFormat
 import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
+import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.longPolling
 import dev.inmo.tgbotapi.types.botCommandsLimit
 import kotlinx.coroutines.*
@@ -17,9 +18,9 @@ suspend inline fun initPlaguBot(
 ) {
     val bot = telegramBot(config.botToken)
 
-    bot.longPolling(scope = scope) {
+    bot.buildBehaviour(scope) {
         val commands = config.plugins.flatMap {
-            it.invoke(bot, config.database.database, this, scope)
+            it.apply { invoke(config.database.database) }
             it.getCommands()
         }.let {
             val futureUnavailable = it.drop(botCommandsLimit.last)
@@ -28,11 +29,7 @@ suspend inline fun initPlaguBot(
             }
             it.take(botCommandsLimit.last)
         }
-        scope.launch {
-            safelyWithoutExceptions {
-                bot.setMyCommands(commands)
-            }
-        }
+        safelyWithoutExceptions { setMyCommands(commands) }
     }
 }
 
