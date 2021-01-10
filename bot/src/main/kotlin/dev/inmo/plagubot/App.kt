@@ -3,9 +3,9 @@ package dev.inmo.plagubot
 import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.Config
 import dev.inmo.plagubot.config.configSerialFormat
+import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
-import dev.inmo.tgbotapi.extensions.api.telegramBot
-import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingFlowsUpdatesByLongPolling
+import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.longPolling
 import dev.inmo.tgbotapi.types.botCommandsLimit
 import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
@@ -17,7 +17,7 @@ suspend inline fun initPlaguBot(
 ) {
     val bot = telegramBot(config.botToken)
 
-    bot.startGettingFlowsUpdatesByLongPolling(scope = scope) {
+    bot.longPolling(scope = scope) {
         val commands = config.plugins.flatMap {
             it.invoke(bot, config.database.database, this, scope)
             it.getCommands()
