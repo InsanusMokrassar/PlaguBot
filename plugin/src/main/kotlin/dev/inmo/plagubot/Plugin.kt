@@ -33,7 +33,13 @@ interface Plugin {
      */
     suspend operator fun BehaviourContext.invoke(
         database: Database
-    ) {
-        invoke(bot, database, flowsUpdatesFilter, scope)
-    }
+    ) = invoke(bot, database, flowsUpdatesFilter, scope)
+
+    /**
+     * This method (usually) will be invoked just one time in the whole application.
+     */
+    suspend operator fun BehaviourContext.invoke(
+        database: Database,
+        params: Map<String, Any>
+    ) = invoke(database)
 }
