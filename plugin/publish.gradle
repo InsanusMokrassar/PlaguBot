@@ -1,9 +1,6 @@
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
 
 task javadocJar(type: Jar) {
     from javadoc
@@ -15,14 +12,13 @@ publishing {
         maven(MavenPublication) {
             from components.java
 
-            artifact sourcesJar
             artifact javadocJar
 
             pom {
                 resolveStrategy = Closure.DELEGATE_FIRST
 
-                description = ""
-                name = "PlaguBot ${project.name}"
+                description = "Base dependency for whole PlaguBot project"
+                name = "PlaguBot Plugin"
                 url = "https://github.com/InsanusMokrassar/PlaguBot"
 
                 scm {
@@ -59,8 +55,23 @@ publishing {
                             password = project.hasProperty('BINTRAY_KEY') ? project.property('BINTRAY_KEY') : System.getenv('BINTRAY_KEY')
                         }
                     }
+                    
+                    maven {
+                        name = "sonatype"
+                        url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                        credentials {
+                            username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
+                            password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
+                        }
+                    }
+                    
                 }
             
         }
     }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications
 }
