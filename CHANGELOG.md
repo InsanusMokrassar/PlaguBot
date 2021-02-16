@@ -8,8 +8,12 @@
   * `exposed`: `0.28.1` -> `0.29.1`
   * `tgbotapi`: `0.30.10` -> `0.32.5`
   * `microutils`: `0.4.11` -> `0.4.25`
+* `Bot`
+  * New dependency `sdi`
+    * Now it is possible to pass `Module` to configuration for providing a global plugins parameters like different
+  common database or tools
 * `Plugin`
-  * New method `BehaviourContext#invoke`
+  * Two new methods `BehaviourContext#invoke`
     * Old method `invoke` has been deprecated
 
 ## 0.0.5

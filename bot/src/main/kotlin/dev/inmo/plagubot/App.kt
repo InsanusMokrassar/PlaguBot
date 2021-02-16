@@ -1,7 +1,7 @@
 package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
-import dev.inmo.plagubot.config.Config
+import dev.inmo.plagubot.config.*
 import dev.inmo.plagubot.config.configSerialFormat
 import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
@@ -18,9 +18,11 @@ suspend inline fun initPlaguBot(
 ) {
     val bot = telegramBot(config.botToken)
 
+    val paramsMap = config.params ?.toMap() ?: emptyMap()
+    val database = config.params ?.database ?: config.database.database
     bot.buildBehaviour(scope) {
         val commands = config.plugins.flatMap {
-            it.apply { invoke(config.database.database) }
+            it.apply { invoke(database, paramsMap) }
             it.getCommands()
         }.let {
             val futureUnavailable = it.drop(botCommandsLimit.last)

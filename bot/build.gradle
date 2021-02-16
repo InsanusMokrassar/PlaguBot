@@ -18,6 +18,7 @@ dependencies {
     api "org.jetbrains.exposed:exposed-jdbc:$kotlin_exposed_version"
 
     api "dev.inmo:tgbotapi:$tgbotapi_version"
+    api "dev.inmo:sdi:$sdi_version"
     api "dev.inmo:micro_utils.repos.exposed:$microutils_version"
 
     api "com.github.matfax.klassindex:library:$klassindex_version"
@@ -34,6 +35,7 @@ application {
 kapt {
     arguments {
         arg("com.github.matfax.klassindex.IndexSubclasses", "dev.inmo.plagubot.Plugin")
+        arg("com.github.matfax.klassindex.IndexAnnotated", "dev.inmo.sdi.SDIIncluded")
     }
 }
 

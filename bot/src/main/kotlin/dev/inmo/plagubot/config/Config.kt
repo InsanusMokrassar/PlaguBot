@@ -2,6 +2,7 @@ package dev.inmo.plagubot.config
 
 import com.github.matfax.klassindex.KlassIndex
 import dev.inmo.plagubot.Plugin
+import dev.inmo.sdi.Module
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.*
@@ -37,6 +38,7 @@ internal val configSerialFormat: StringFormat
 @Serializable
 data class Config(
     val plugins: List<Plugin>,
-    val database: DatabaseConfig,
-    val botToken: String
+    val database: DatabaseConfig = DatabaseConfig(),
+    val botToken: String,
+    val params: Module? = null
 )
