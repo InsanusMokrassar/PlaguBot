@@ -1,8 +1,6 @@
 package dev.inmo.plagubot
 
-import dev.inmo.tgbotapi.bot.TelegramBot
-import dev.inmo.tgbotapi.updateshandlers.FlowsUpdatesFilter
-import kotlinx.coroutines.CoroutineScope
+import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Database
@@ -12,12 +10,7 @@ import org.jetbrains.exposed.sql.Database
 data class HelloPlugin(
     val parameter: String
 ) : Plugin {
-    override suspend fun invoke(
-        bot: TelegramBot,
-        database: Database,
-        updatesFilter: FlowsUpdatesFilter,
-        scope: CoroutineScope
-    ) {
+    override suspend fun BehaviourContext.invoke(database: Database) {
         println(parameter)
     }
 }
