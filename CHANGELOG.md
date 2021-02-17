@@ -2,6 +2,8 @@
 
 ## 0.1.3
 
+* `Bot`
+  * `initPlaguBot` now will return `Job`
 * `Plugin`
   * Plugin serializer
 
