@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.1
+## 0.1.2
 
 * `Versions`
   * `tgbotapi`: `0.32.5` -> `0.32.6`
