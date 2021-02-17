@@ -15,12 +15,12 @@ import java.io.File
 suspend inline fun initPlaguBot(
     config: Config,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) {
+): Job {
     val bot = telegramBot(config.botToken)
 
     val paramsMap = config.params ?.toMap() ?: emptyMap()
     val database = config.params ?.database ?: config.database.database
-    bot.buildBehaviour(scope) {
+    return bot.buildBehaviour(scope) {
         val commands = config.plugins.flatMap {
             it.apply { invoke(database, paramsMap) }
             it.getCommands()
@@ -45,6 +45,5 @@ suspend fun main(args: Array<String>) {
     val config = configSerialFormat.decodeFromString(Config.serializer(), file.readText())
 
     val scope = CoroutineScope(Dispatchers.Default)
-    initPlaguBot(config, scope)
-    scope.coroutineContext.job.join()
+    initPlaguBot(config, scope).join()
 }
