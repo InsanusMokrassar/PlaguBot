@@ -2,6 +2,9 @@
 
 ## 0.1.3
 
+* `Plugin`
+  * Plugin serializer
+
 ## 0.1.2
 
 * `Versions`
