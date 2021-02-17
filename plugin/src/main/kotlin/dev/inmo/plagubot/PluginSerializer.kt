@@ -45,7 +45,9 @@ object PluginSerializer : KSerializer<Plugin> {
         }
     }
 
+    @InternalSerializationApi
     override fun serialize(encoder: Encoder, value: Plugin) {
-        polymorphic.serialize(encoder, value)
+        val serializer = (value::class.serializerOrNull() ?: polymorphic) as KSerializer<Plugin>
+        serializer.serialize(encoder, value)
     }
 }
