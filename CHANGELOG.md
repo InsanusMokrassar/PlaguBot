@@ -2,6 +2,8 @@
 
 ## 0.1.3
 
+* `Versions`
+  * `tgbotapi`: `0.32.6` -> `0.32.7`
 * `Bot`
   * `initPlaguBot` now will return `Job`
 * `Plugin`
