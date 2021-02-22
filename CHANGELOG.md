@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.4
+
+* `Versions`
+  * `sdi`: `0.4.0-rc2` -> `0.4.1`
+  * `tgbotapi`: `0.32.7` -> `0.32.8`
+  * `microutils`: `0.4.25` -> `0.4.26`
+* `Bot`
+  * Fix of [#9](https://github.com/InsanusMokrassar/PlaguBot/issues/9)
+
 ## 0.1.3
 
 * `Versions`
