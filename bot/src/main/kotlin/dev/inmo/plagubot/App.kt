@@ -2,11 +2,10 @@ package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
-import dev.inmo.plagubot.config.configSerialFormat
+import dev.inmo.plagubot.config.configJsonFormat
 import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
 import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
-import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.longPolling
 import dev.inmo.tgbotapi.types.botCommandsLimit
 import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
@@ -42,7 +41,7 @@ suspend inline fun initPlaguBot(
 suspend fun main(args: Array<String>) {
     val (configPath) = args
     val file = File(configPath)
-    val config = configSerialFormat.decodeFromString(Config.serializer(), file.readText())
+    val config = configJsonFormat.decodeFromString(ConfigSerializer, file.readText())
 
     val scope = CoroutineScope(Dispatchers.Default)
     initPlaguBot(config, scope).join()
