@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.5
+
+* `Versions`
+  * `kotlin`: `1.4.30` -> `1.4.31`
+  * `serialization`: `1.1.0-RC` -> `1.1.0`
+  * `coroutines`: `1.4.2` -> `1.4.3`
+  * `tgbotapi`: `0.32.8` -> `0.33.0`
+  * `microutils`: `0.4.26` -> `0.4.29`
+
 ## 0.1.4
 
 * `Versions`

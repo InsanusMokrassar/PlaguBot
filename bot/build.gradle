@@ -26,7 +26,6 @@ dependencies {
     api "org.xerial:sqlite-jdbc:$sqlite_version"
 
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-annotations-jvm:$kotlin_version"
 
     api project(":plagubot.plugin")
 }
