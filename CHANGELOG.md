@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.6
+
+* `Versions`
+  * `kotlin`: `1.4.31` -> `1.4.32`
+  * `tgbotapi`: `0.33.0` -> `0.33.1`
+  * `microutils`: `0.4.29` -> `0.4.31`
+
 ## 0.1.5
 
 * `Versions`
