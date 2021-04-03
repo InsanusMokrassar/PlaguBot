@@ -1,38 +1,22 @@
 package dev.inmo.plagubot
 
-import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
 import dev.inmo.plagubot.config.configJsonFormat
-import dev.inmo.tgbotapi.bot.Ktor.telegramBot
-import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
-import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
-import dev.inmo.tgbotapi.types.botCommandsLimit
 import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
 import java.io.File
 
+@Deprecated(
+    "This method is redundant due to new class PlaguBot",
+    ReplaceWith(
+        "PlaguBot(config).start(scope)",
+        "dev.inmo.plagubot.PlaguBot"
+    )
+)
 suspend inline fun initPlaguBot(
     config: Config,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-): Job {
-    val bot = telegramBot(config.botToken)
-
-    val paramsMap = config.params ?.toMap() ?: emptyMap()
-    val database = config.params ?.database ?: config.database.database
-    return bot.buildBehaviour(scope) {
-        val commands = config.plugins.flatMap {
-            it.apply { invoke(database, paramsMap) }
-            it.getCommands()
-        }.let {
-            val futureUnavailable = it.drop(botCommandsLimit.last)
-            if (futureUnavailable.isNotEmpty()) {
-                println("Next commands are out of range in setting command request and will be unavailable from autocompleting: ${futureUnavailable}")
-            }
-            it.take(botCommandsLimit.last)
-        }
-        safelyWithoutExceptions { setMyCommands(commands) }
-    }
-}
+): Job = PlaguBot(config).start(scope)
 
 /**
  * This method by default expects one argument in [args] field: path to config
@@ -43,6 +27,5 @@ suspend fun main(args: Array<String>) {
     val file = File(configPath)
     val config = configJsonFormat.decodeFromString(ConfigSerializer, file.readText())
 
-    val scope = CoroutineScope(Dispatchers.Default)
-    initPlaguBot(config, scope).join()
+    PlaguBot(config).start().join()
 }

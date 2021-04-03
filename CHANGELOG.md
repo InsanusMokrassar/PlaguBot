@@ -2,6 +2,12 @@
 
 ## 0.1.7
 
+* `PlaguBot`
+  * New class `PlaguBot` (😊)
+  * `initPlaguBot` is deprecated
+  * New shortcut for params - `plagubot`. `PlaguBot` class can be put inside other plagubot
+  for additional opportunities
+
 ## 0.1.6
 
 * `Versions`
