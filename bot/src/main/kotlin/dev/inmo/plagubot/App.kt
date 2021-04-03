@@ -1,7 +1,6 @@
 package dev.inmo.plagubot
 
 import dev.inmo.plagubot.config.*
-import dev.inmo.plagubot.config.configJsonFormat
 import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
 import java.io.File
