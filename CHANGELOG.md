@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.7
+
+* `Versions`
+  * `exposed`: `0.29.1` -> `0.30.1`
+  * `tgbotapi`: `0.33.1` -> `0.33.2`
+  * `microutils`: `0.4.31` -> `0.4.32`
+* `PlaguBot`
+  * New class `PlaguBot` (😊)
+  * `initPlaguBot` is deprecated
+  * New shortcut for params - `plagubot`. `PlaguBot` class can be put inside other plagubot
+  for additional opportunities
+
 ## 0.1.6
 
 * `Versions`
