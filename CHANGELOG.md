@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+* `Versions`
+  * `tgbotapi`: `0.33.4` -> `0.34.0`
+  * `exposed`: `0.30.2` -> `0.31.1`
+
 ## 0.1.9
 
 * `Versions`
