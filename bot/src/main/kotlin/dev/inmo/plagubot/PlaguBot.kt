@@ -1,8 +1,7 @@
 package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
-import dev.inmo.plagubot.config.Config
-import dev.inmo.plagubot.config.database
+import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
@@ -20,6 +19,7 @@ val Map<String, Any>.plagubot
 
 @Serializable
 data class PlaguBot(
+    @Serializable(PluginsConfigurationSerializer::class)
     private val config: Config
 ) : Plugin {
     @Transient

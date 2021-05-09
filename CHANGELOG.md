@@ -2,6 +2,11 @@
 
 ## 0.2.2
 
+* `Bot`
+  * Add plugin `PluginsHolder`
+  * Rewrite mechanism of `Config` working
+  * `PlaguBot` now is correctly serializable/deserializable
+
 ## 0.2.1
 
 * `Versions`
