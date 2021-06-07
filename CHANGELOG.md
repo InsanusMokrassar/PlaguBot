@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.0
+
+
+* `Versions`
+  * `kotlin`: `1.4.32` -> `1.5.10`
+  * `coroutines`: `1.4.3` -> `1.5.0`
+  * `serialization`: `1.1.0` -> `1.2.1`
+  * `exposed`: `0.31.1` -> `0.32.1`
+  * `sdi`: `0.4.1` -> `0.5.0`
+  * `tgbotapi`: `0.34.1` -> `0.35.0`
+  * `microutils`: `0.4.36` -> `0.5.7`
+* `Bot`
+  * Add plugin `PluginsHolder`
+  * Rewrite mechanism of `Config` working
+  * `PlaguBot` now is correctly serializable/deserializable
+
 ## 0.2.1
 
 * `Versions`

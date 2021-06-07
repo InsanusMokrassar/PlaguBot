@@ -24,7 +24,7 @@ suspend inline fun initPlaguBot(
 suspend fun main(args: Array<String>) {
     val (configPath) = args
     val file = File(configPath)
-    val config = configJsonFormat.decodeFromString(ConfigSerializer, file.readText())
+    val config = configAndPluginsConfigJsonFormat.decodeFromString(PluginsConfigurationSerializer, file.readText()) as Config
 
     PlaguBot(config).start().join()
 }

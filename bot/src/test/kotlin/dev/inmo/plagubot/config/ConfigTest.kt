@@ -22,13 +22,16 @@ class ConfigTest {
               }
             }
         """.trimIndent()
-        val config = configJsonFormat.decodeFromString(ConfigSerializer, rawConfig)
+        val config = configAndPluginsConfigJsonFormat.decodeFromString(PluginsConfigurationSerializer, rawConfig) as Config
 
         assert(config.plugins.size == 1)
         assert(config.plugins.first() is HelloPlugin)
         assert((config.plugins.first() as HelloPlugin).parameter == "Example")
 
-        val redecoded = configJsonFormat.decodeFromString(ConfigSerializer, configJsonFormat.encodeToString(ConfigSerializer, config))
+        val redecoded = configAndPluginsConfigJsonFormat.decodeFromString(
+            PluginsConfigurationSerializer,
+            configAndPluginsConfigJsonFormat.encodeToString(PluginsConfigurationSerializer, config)
+        ) as Config
         assertEquals(config.database, redecoded.database)
         assertEquals(config.plugins, redecoded.plugins)
         assertEquals(config.botToken, redecoded.botToken)
