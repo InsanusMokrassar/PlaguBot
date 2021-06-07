@@ -10,7 +10,7 @@
   * `exposed`: `0.31.1` -> `0.32.1`
   * `sdi`: `0.4.1` -> `0.5.0`
   * `tgbotapi`: `0.34.1` -> `0.35.0`
-  * `microutils`: `0.4.36` -> `0.5.6`
+  * `microutils`: `0.4.36` -> `0.5.7`
 * `Bot`
   * Add plugin `PluginsHolder`
   * Rewrite mechanism of `Config` working
