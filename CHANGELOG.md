@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.2
+
+* `Versions`
+  * `kotlin`: `1.5.20` -> `1.5.31`
+  * `coroutines`: `1.5.0` -> `1.5.2`
+  * `serialization`: `1.2.1` -> `1.2.2`
+  * `exposed`: `0.32.1` -> `0.34.2`
+  * `tgbotapi`: `0.35.1` -> `0.35.9`
+  * `microutils`: `0.5.15` -> `0.5.28`
+
 ## 0.3.1
 
 * `Versions`
