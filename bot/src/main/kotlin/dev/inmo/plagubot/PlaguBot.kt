@@ -4,8 +4,7 @@ import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.Ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
-import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
-import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
+import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.types.BotCommand
 import dev.inmo.tgbotapi.types.botCommandsLimit
 import kotlinx.coroutines.*
@@ -50,7 +49,7 @@ data class PlaguBot(
      */
     suspend fun start(
         scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-    ): Job = bot.buildBehaviour(scope) {
+    ): Job = bot.buildBehaviourWithLongPolling(scope) {
         invoke(database, paramsMap)
     }
 }
