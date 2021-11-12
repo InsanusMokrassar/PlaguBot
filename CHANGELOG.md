@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+Temporal update for compatibility with java 1.8
+
 ## 0.3.2
 
 * `Versions`

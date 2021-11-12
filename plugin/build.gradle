@@ -15,3 +15,8 @@ dependencies {
     api "dev.inmo:tgbotapi:$tgbotapi_version"
     api "dev.inmo:micro_utils.repos.exposed:$microutils_version"
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
