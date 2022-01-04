@@ -15,7 +15,7 @@ object PluginSerializer : KSerializer<Plugin> {
     private val polymorphic = PolymorphicSerializer(Plugin::class)
     override val descriptor: SerialDescriptor = JsonObject.serializer().descriptor
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): Plugin {
         val format = (decoder as? JsonDecoder) ?.json ?: defaultJson
         val asJson = JsonElement.serializer().deserialize(decoder)
@@ -45,7 +45,7 @@ object PluginSerializer : KSerializer<Plugin> {
         }
     }
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: Plugin) {
         val serializer = (value::class.serializerOrNull() ?: polymorphic) as KSerializer<Plugin>
         serializer.serialize(encoder, value)

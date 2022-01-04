@@ -63,7 +63,7 @@ internal class InternalPluginSerializer(
 ) : KSerializer<Plugin> {
     override val descriptor: SerialDescriptor = PluginSerializer.descriptor
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): Plugin {
         val asJson = JsonElement.serializer().deserialize(decoder)
 
@@ -75,7 +75,7 @@ internal class InternalPluginSerializer(
         }
     }
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: Plugin) {
         params.keys.firstOrNull { params[it] === value } ?.also {
             encoder.encodeString(it)
@@ -90,7 +90,7 @@ internal class InternalModuleSerializer(
 ) : KSerializer<Module> {
     override val descriptor: SerialDescriptor = PluginSerializer.descriptor
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): Module {
         val asJson = JsonElement.serializer().deserialize(decoder)
 
@@ -101,7 +101,7 @@ internal class InternalModuleSerializer(
         }
     }
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: Module) = DefaultModuleSerializer.serialize(encoder, value)
 }
 
@@ -119,7 +119,7 @@ internal object PluginsConfigurationSerializer : KSerializer<PluginsConfiguratio
     private val moduleSerializer = ModuleSerializer()
     override val descriptor: SerialDescriptor = jsonSerializer.descriptor
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): PluginsConfiguration {
         val json = jsonSerializer.deserialize(decoder)
         val jsonFormat = (decoder as? JsonDecoder) ?.json ?: configAndPluginsConfigJsonFormat
@@ -154,7 +154,7 @@ internal object PluginsConfigurationSerializer : KSerializer<PluginsConfiguratio
         }
     }
 
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: PluginsConfiguration) {
         val params = value.params
         val serializer = when (value) {

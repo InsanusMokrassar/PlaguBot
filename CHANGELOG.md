@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0
+
+* `Versions`
+  * `kotlin`: `1.6.10`
+  * `coroutines`: `1.6.0`
+  * `serialization`: `1.3.2`
+  * `exposed`: `0.37.2`
+  * `tgbotapi`: `0.38.0`
+  * `microutils`: `0.9.0`
+
 ## 0.4.1
 
 Temporal update for compatibility with java 1.8
