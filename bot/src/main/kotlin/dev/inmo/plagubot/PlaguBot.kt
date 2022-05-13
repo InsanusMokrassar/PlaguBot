@@ -2,7 +2,7 @@ package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
-import dev.inmo.tgbotapi.bot.Ktor.telegramBot
+import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.types.BotCommand
@@ -23,8 +23,6 @@ data class PlaguBot(
 ) : Plugin {
     @Transient
     private val bot = telegramBot(config.botToken)
-    @Transient
-    private val paramsMap = config.params ?.toMap() ?: emptyMap()
     @Transient
     private val database = config.params ?.database ?: config.database.database
 

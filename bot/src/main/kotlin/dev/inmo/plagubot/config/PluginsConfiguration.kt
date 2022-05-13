@@ -2,7 +2,6 @@ package dev.inmo.plagubot.config
 
 import com.github.matfax.klassindex.KlassIndex
 import dev.inmo.plagubot.Plugin
-import dev.inmo.plagubot.PluginSerializer
 import dev.inmo.sdi.Module
 import dev.inmo.sdi.ModuleSerializer
 import kotlinx.serialization.*

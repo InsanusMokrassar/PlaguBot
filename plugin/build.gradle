@@ -9,11 +9,13 @@ project.version="$version"
 apply from: "publish.gradle"
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_runtime_version"
+    implementation libs.kt.stdlib
+    api libs.kt.serialization
 
-    api "dev.inmo:tgbotapi:$tgbotapi_version"
-    api "dev.inmo:micro_utils.repos.exposed:$microutils_version"
+    api libs.tgbotapi
+    api libs.microutils.repos.exposed
+
+    api libs.koin
 }
 
 java {
