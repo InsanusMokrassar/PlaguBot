@@ -1,20 +1,19 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        classpath "com.github.breadmoirai:github-release:$github_release_plugin_version"
+        classpath libs.buildscript.kt.gradle
+        classpath libs.buildscript.kt.serialization
+        classpath libs.buildscript.gh.release
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
         mavenLocal()
         maven { url 'https://jitpack.io' }
     }

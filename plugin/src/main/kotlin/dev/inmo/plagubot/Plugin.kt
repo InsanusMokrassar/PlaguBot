@@ -6,9 +6,13 @@ import dev.inmo.tgbotapi.types.BotCommand
 import dev.inmo.tgbotapi.updateshandlers.FlowsUpdatesFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
+import org.koin.core.KoinApplication
 
 /**
+ * **ANY REALIZATION OF [Plugin] MUST HAVE CONSTRUCTOR WITH ABSENCE OF INCOMING PARAMETERS**
+ *
  * Use this interface for your bot. It is possible to use [kotlinx.serialization.SerialName] annotations on your plugins
  * to set up short name for your plugin. Besides, simple name of your class will be used as key for deserialization
  * too.
@@ -22,26 +26,20 @@ interface Plugin {
      */
     suspend fun getCommands(): List<BotCommand> = emptyList()
 
-    @Deprecated("Override other method with receiver BehaviourContext")
-    suspend operator fun invoke(
-        bot: TelegramBot,
+    /**
+     * This method (usually) will be invoked just one time in the whole application.
+     */
+    suspend operator fun BehaviourContext.invoke(
         database: Database,
-        updatesFilter: FlowsUpdatesFilter,
-        scope: CoroutineScope
+        koinApplication: KoinApplication,
     ) {}
 
     /**
      * This method (usually) will be invoked just one time in the whole application.
      */
     suspend operator fun BehaviourContext.invoke(
-        database: Database
-    ) = invoke(bot, database, flowsUpdatesFilter, scope)
-
-    /**
-     * This method (usually) will be invoked just one time in the whole application.
-     */
-    suspend operator fun BehaviourContext.invoke(
         database: Database,
-        params: Map<String, Any>
-    ) = invoke(database)
+        koinApplication: KoinApplication,
+        params: JsonObject
+    ) = invoke(database, koinApplication)
 }

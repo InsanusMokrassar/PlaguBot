@@ -4,12 +4,12 @@ import dev.inmo.plagubot.Plugin
 import dev.inmo.sdi.Module
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class Config(
-    override val plugins: List<@Contextual Plugin>,
+    override val plugins: List<Plugin>,
     val database: DatabaseConfig = DatabaseConfig(),
     val botToken: String,
-    @Contextual
-    override val params: Module? = null
+    val rawConfig: JsonObject
 ) : PluginsConfiguration
