@@ -8,7 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
+import org.koin.core.Koin
 import org.koin.core.KoinApplication
+import org.koin.core.component.KoinComponent
+import org.koin.dsl.ModuleDeclaration
+import org.koin.dsl.module
 
 /**
  * **ANY REALIZATION OF [Plugin] MUST HAVE CONSTRUCTOR WITH ABSENCE OF INCOMING PARAMETERS**
@@ -18,28 +22,17 @@ import org.koin.core.KoinApplication
  * too.
  */
 @Serializable(PluginSerializer::class)
-interface Plugin {
-    /**
-     * In case you want to publish some processed by your plugin commands, you can provide it via this method
-     *
-     * @see BotCommand
-     */
-    suspend fun getCommands(): List<BotCommand> = emptyList()
-
+interface Plugin : KoinComponent {
+    fun loadModule(createdAtStart: Boolean = false, moduleDeclaration: ModuleDeclaration) = getKoin().loadModules(
+        listOf(
+            module(createdAtStart, moduleDeclaration)
+        )
+    )
     /**
      * This method (usually) will be invoked just one time in the whole application.
      */
     suspend operator fun BehaviourContext.invoke(
         database: Database,
-        koinApplication: KoinApplication,
-    ) {}
-
-    /**
-     * This method (usually) will be invoked just one time in the whole application.
-     */
-    suspend operator fun BehaviourContext.invoke(
-        database: Database,
-        koinApplication: KoinApplication,
         params: JsonObject
-    ) = invoke(database, koinApplication)
+    ) {}
 }
