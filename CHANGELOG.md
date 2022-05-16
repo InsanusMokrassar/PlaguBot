@@ -2,6 +2,22 @@
 
 ## 1.0.0
 
+* `Versions`
+  * `kotlin`: `1.6.21`
+  * `coroutines`: `1.6.1`
+  * `serialization`: `1.3.3`
+  * `exposed`: `0.38.2`
+  * `tgbotapi`: `1.1.0`
+  * `microutils`: `0.10.4`
+* `Common`:
+  * ___ALL THE SDI/KLASSINDEX FUNCTIONALITY HAS BEEN REMOVED___
+* `Plugin`:
+  * Now plugins must have empty constructor
+  * Now plugins may provide realization of two methods: `setupDI` and `setupBotPlugin`
+* `PlaguBot`:
+  * `Config` now is simple serializable `data class`
+  * `PlaguBot` now is more simple as a plugin
+
 ## 0.5.1
 
 * `Versions`
