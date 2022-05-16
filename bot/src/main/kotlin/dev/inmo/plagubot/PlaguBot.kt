@@ -16,6 +16,8 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.module.Module
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
+import java.util.logging.Level
+import java.util.logging.Logger
 
 val Scope.plagubot: PlaguBot
     get() = get()
@@ -25,6 +27,8 @@ data class PlaguBot(
     private val json: JsonObject,
     private val config: Config
 ) : Plugin {
+    @Transient
+    private val logger = Logger.getLogger("PlaguBot")
     @Transient
     private val bot = telegramBot(config.botToken)
 
@@ -37,20 +41,28 @@ data class PlaguBot(
         single { this@PlaguBot }
 
         includes(
-            config.plugins.map {
-                module {
-                    with(it) {
-                        setupDI(database, params)
+            config.plugins.mapNotNull {
+                runCatching {
+                    module {
+                        with(it) {
+                            setupDI(database, params)
+                        }
                     }
-                }
+                }.onFailure { e ->
+                    logger.log(Level.WARNING, "Unable to load DI part of $it", e)
+                }.getOrNull()
             }
         )
     }
 
     override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
         config.plugins.forEach {
-            with(it) {
-                setupBotPlugin(koin)
+            runCatching {
+                with(it) {
+                    setupBotPlugin(koin)
+                }
+            }.onFailure { e ->
+                logger.log(Level.WARNING, "Unable to load bot part of $it", e)
             }
         }
     }
@@ -61,19 +73,26 @@ data class PlaguBot(
     suspend fun start(
         scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     ): Job {
+        logger.info("Start initialization")
         val koinApp = KoinApplication.init()
         koinApp.modules(
             module {
                 setupDI(config.databaseConfig.database, json)
             }
         )
+        logger.info("Modules loaded")
         GlobalContext.startKoin(koinApp)
+        logger.info("Koin started")
         lateinit var behaviourContext: BehaviourContext
         bot.buildBehaviour(scope = scope) {
+            logger.info("Start setup of bot part")
             behaviourContext = this
             setupBotPlugin(koinApp.koin)
             deleteWebhook()
         }
-        return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext)
+        logger.info("Behaviour builder has been setup")
+        return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext).also {
+            logger.info("Long polling has been started")
+        }
     }
 }
