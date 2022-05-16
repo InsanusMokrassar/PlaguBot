@@ -2,6 +2,7 @@ package dev.inmo.plagubot
 
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
+import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
@@ -9,14 +10,14 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
+import org.koin.core.Koin
 import org.koin.core.KoinApplication
-import org.koin.core.component.get
 import org.koin.core.context.GlobalContext
-import org.koin.core.qualifier.named
+import org.koin.core.module.Module
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
-const val DefaultPlaguBotParamsKey = "plagubot"
-val Plugin.plagubot: PlaguBot
+val Scope.plagubot: PlaguBot
     get() = get()
 
 @Serializable
@@ -27,12 +28,30 @@ data class PlaguBot(
     @Transient
     private val bot = telegramBot(config.botToken)
 
-    override suspend fun BehaviourContext.invoke(
-        database: Database,
-        params: JsonObject
-    ) {
+    override fun Module.setupDI(database: Database, params: JsonObject) {
+        single { config }
+        single { config.plugins }
+        single { config.databaseConfig }
+        single { config.databaseConfig.database }
+        single { defaultJsonFormat }
+        single { this@PlaguBot }
+
+        includes(
+            config.plugins.map {
+                module {
+                    with(it) {
+                        setupDI(database, params)
+                    }
+                }
+            }
+        )
+    }
+
+    override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
         config.plugins.forEach {
-            it.apply { invoke(database, params) }
+            with(it) {
+                setupBotPlugin(koin)
+            }
         }
     }
 
@@ -40,25 +59,21 @@ data class PlaguBot(
      * This method will create an [Job] which will be the main [Job] of ran instance
      */
     suspend fun start(
-        scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+        scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     ): Job {
         val koinApp = KoinApplication.init()
         koinApp.modules(
             module {
-                single { config }
-                single { config.plugins }
-                single { config.database }
-                single(named(defaultDatabaseParamsName)) { config.database.database }
-                single { defaultJsonFormat }
-                single(named(DefaultPlaguBotParamsKey)) { this@PlaguBot }
+                setupDI(config.databaseConfig.database, json)
             }
         )
+        GlobalContext.startKoin(koinApp)
         lateinit var behaviourContext: BehaviourContext
         bot.buildBehaviour(scope = scope) {
-            invoke(config.database.database, json)
             behaviourContext = this
+            setupBotPlugin(koinApp.koin)
+            deleteWebhook()
         }
-        GlobalContext.startKoin(koinApp)
         return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext)
     }
 }

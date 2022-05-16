@@ -1,21 +1,15 @@
 package dev.inmo.plagubot.config
 
-import dev.inmo.plagubot.Plugin
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transactionManager
-import org.koin.core.KoinApplication
-import org.koin.core.context.loadKoinModules
-import org.koin.core.qualifier.StringQualifier
-import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 import org.sqlite.JDBC
 import java.sql.Connection
 
-const val defaultDatabaseParamsName = "defaultDatabase"
-inline val Plugin.database: Database?
-    get() = getKoin().getOrNull<Database>(named(defaultDatabaseParamsName))
+inline val Scope.database: Database?
+    get() = getOrNull<Database>()
 
 @Serializable
 data class DatabaseConfig(

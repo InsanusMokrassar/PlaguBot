@@ -32,7 +32,7 @@ class ConfigTest {
             PluginsConfigurationSerializer,
             configAndPluginsConfigJsonFormat.encodeToString(PluginsConfigurationSerializer, config)
         ) as Config
-        assertEquals(config.database, redecoded.database)
+        assertEquals(config.databaseConfig, redecoded.databaseConfig)
         assertEquals(config.plugins, redecoded.plugins)
         assertEquals(config.botToken, redecoded.botToken)
         assertEquals(config.params ?.toMap(), redecoded.params ?.toMap())
