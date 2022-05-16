@@ -1,55 +1,98 @@
 package dev.inmo.plagubot
 
-import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
-import dev.inmo.tgbotapi.bot.Ktor.telegramBot
-import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
+import dev.inmo.tgbotapi.bot.ktor.telegramBot
+import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
-import dev.inmo.tgbotapi.types.BotCommand
-import dev.inmo.tgbotapi.types.botCommandsLimit
+import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
+import org.koin.core.Koin
+import org.koin.core.KoinApplication
+import org.koin.core.context.GlobalContext
+import org.koin.core.module.Module
+import org.koin.core.scope.Scope
+import org.koin.dsl.module
+import java.util.logging.Level
+import java.util.logging.Logger
 
-const val DefaultPlaguBotParamsKey = "plagubot"
-val Map<String, Any>.plagubot
-    get() = get(DefaultPlaguBotParamsKey) as? PlaguBot
+val Scope.plagubot: PlaguBot
+    get() = get()
 
 @Serializable
 data class PlaguBot(
-    @Serializable(PluginsConfigurationSerializer::class)
+    private val json: JsonObject,
     private val config: Config
 ) : Plugin {
     @Transient
+    private val logger = Logger.getLogger("PlaguBot")
+    @Transient
     private val bot = telegramBot(config.botToken)
-    @Transient
-    private val paramsMap = config.params ?.toMap() ?: emptyMap()
-    @Transient
-    private val database = config.params ?.database ?: config.database.database
 
-    override suspend fun getCommands(): List<BotCommand> = config.plugins.flatMap {
-        it.getCommands()
+    override fun Module.setupDI(database: Database, params: JsonObject) {
+        single { config }
+        single { config.plugins }
+        single { config.databaseConfig }
+        single { config.databaseConfig.database }
+        single { defaultJsonFormat }
+        single { this@PlaguBot }
+
+        includes(
+            config.plugins.mapNotNull {
+                runCatching {
+                    module {
+                        with(it) {
+                            setupDI(database, params)
+                        }
+                    }
+                }.onFailure { e ->
+                    logger.log(Level.WARNING, "Unable to load DI part of $it", e)
+                }.getOrNull()
+            }
+        )
     }
 
-    override suspend fun BehaviourContext.invoke(database: Database, params: Map<String, Any>) {
+    override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
         config.plugins.forEach {
-            it.apply { invoke(database, params) }
+            runCatching {
+                with(it) {
+                    setupBotPlugin(koin)
+                }
+            }.onFailure { e ->
+                logger.log(Level.WARNING, "Unable to load bot part of $it", e)
+            }
         }
-        val commands = getCommands()
-        val futureUnavailable = commands.drop(botCommandsLimit.last)
-        if (futureUnavailable.isNotEmpty()) {
-            println("Next commands are out of range in setting command request and will be unavailable from autocompleting: $futureUnavailable")
-        }
-        safelyWithoutExceptions { setMyCommands(commands.take(botCommandsLimit.last)) }
     }
 
     /**
      * This method will create an [Job] which will be the main [Job] of ran instance
      */
     suspend fun start(
-        scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-    ): Job = bot.buildBehaviourWithLongPolling(scope) {
-        invoke(database, paramsMap)
+        scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    ): Job {
+        logger.info("Start initialization")
+        val koinApp = KoinApplication.init()
+        koinApp.modules(
+            module {
+                setupDI(config.databaseConfig.database, json)
+            }
+        )
+        logger.info("Modules loaded")
+        GlobalContext.startKoin(koinApp)
+        logger.info("Koin started")
+        lateinit var behaviourContext: BehaviourContext
+        bot.buildBehaviour(scope = scope) {
+            logger.info("Start setup of bot part")
+            behaviourContext = this
+            setupBotPlugin(koinApp.koin)
+            deleteWebhook()
+        }
+        logger.info("Behaviour builder has been setup")
+        return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext).also {
+            logger.info("Long polling has been started")
+        }
     }
 }

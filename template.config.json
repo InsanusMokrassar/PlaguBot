@@ -8,9 +8,9 @@
   },
   "botToken": "1234567890:ABCDEFGHIJKLMNOP_qrstuvwxyz12345678",
   "plugins": [
-    {
-      "type": "Hello",
-      "parameter": "Example"
-    }
-  ]
+    "dev.inmo.plagubot.HelloPlugin"
+  ],
+  "helloPlugin": {
+    "print": "Hello World"
+  }
 }

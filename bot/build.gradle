@@ -1,7 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "org.jetbrains.kotlin.kapt"
     id 'application'
 }
 
@@ -11,34 +10,23 @@ project.version="$version"
 apply from: "publish.gradle"
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
-    api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_runtime_version"
-    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    api "org.jetbrains.exposed:exposed-jdbc:$kotlin_exposed_version"
+    implementation libs.kt.stdlib
+    api libs.kt.coroutines
+    api libs.kt.serialization
+    api libs.jb.exposed.jdbc
 
-    api "dev.inmo:tgbotapi:$tgbotapi_version"
-    api "dev.inmo:sdi:$sdi_version"
-    api "dev.inmo:micro_utils.repos.exposed:$microutils_version"
+    api libs.tgbotapi
+    api libs.microutils.repos.exposed
 
-    api "com.github.matfax.klassindex:library:$klassindex_version"
-    kapt "com.github.matfax.klassindex:processor:$klassindex_version"
-    api "org.xerial:sqlite-jdbc:$sqlite_version"
+    api libs.sqlite
 
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation libs.kt.test.junit
 
     api project(":plagubot.plugin")
 }
 
 application {
     mainClassName = 'dev.inmo.plagubot.AppKt'
-}
-
-kapt {
-    arguments {
-        arg("com.github.matfax.klassindex.IndexSubclasses", "dev.inmo.plagubot.Plugin")
-        arg("com.github.matfax.klassindex.IndexAnnotated", "dev.inmo.sdi.SDIIncluded")
-    }
 }
 
 java {
