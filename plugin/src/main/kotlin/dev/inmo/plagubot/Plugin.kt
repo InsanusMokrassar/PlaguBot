@@ -22,8 +22,8 @@ interface Plugin {
     fun Module.setupDI(
         database: Database,
         params: JsonObject
-    )
+    ) {}
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
-    )
+    ) {}
 }
