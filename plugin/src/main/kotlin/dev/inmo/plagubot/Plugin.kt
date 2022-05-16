@@ -1,18 +1,11 @@
 package dev.inmo.plagubot
 
-import dev.inmo.tgbotapi.bot.TelegramBot
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
-import dev.inmo.tgbotapi.types.BotCommand
-import dev.inmo.tgbotapi.updateshandlers.FlowsUpdatesFilter
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
 import org.koin.core.Koin
-import org.koin.core.KoinApplication
-import org.koin.core.component.KoinComponent
-import org.koin.dsl.ModuleDeclaration
-import org.koin.dsl.module
+import org.koin.core.module.Module
 
 /**
  * **ANY REALIZATION OF [Plugin] MUST HAVE CONSTRUCTOR WITH ABSENCE OF INCOMING PARAMETERS**
@@ -22,17 +15,15 @@ import org.koin.dsl.module
  * too.
  */
 @Serializable(PluginSerializer::class)
-interface Plugin : KoinComponent {
-    fun loadModule(createdAtStart: Boolean = false, moduleDeclaration: ModuleDeclaration) = getKoin().loadModules(
-        listOf(
-            module(createdAtStart, moduleDeclaration)
-        )
-    )
+interface Plugin {
     /**
-     * This method (usually) will be invoked just one time in the whole application.
+     * This method will be called when this plugin should configure di module based on the incoming params
      */
-    suspend operator fun BehaviourContext.invoke(
+    fun Module.setupDI(
         database: Database,
         params: JsonObject
-    ) {}
+    )
+    suspend fun BehaviourContext.setupBotPlugin(
+        koin: Koin
+    )
 }
