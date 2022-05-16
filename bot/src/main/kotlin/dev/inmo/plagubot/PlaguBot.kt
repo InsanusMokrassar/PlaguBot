@@ -1,45 +1,39 @@
 package dev.inmo.plagubot
 
-import dev.inmo.micro_utils.coroutines.safelyWithoutExceptions
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
-import dev.inmo.tgbotapi.extensions.api.bot.setMyCommands
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
-import dev.inmo.tgbotapi.types.BotCommand
-import dev.inmo.tgbotapi.types.botCommandsLimit
+import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
+import org.koin.core.KoinApplication
+import org.koin.core.component.get
+import org.koin.core.context.GlobalContext
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 const val DefaultPlaguBotParamsKey = "plagubot"
-val Map<String, Any>.plagubot
-    get() = get(DefaultPlaguBotParamsKey) as? PlaguBot
+val Plugin.plagubot: PlaguBot
+    get() = get()
 
 @Serializable
 data class PlaguBot(
-    @Serializable(PluginsConfigurationSerializer::class)
+    private val json: JsonObject,
     private val config: Config
 ) : Plugin {
     @Transient
     private val bot = telegramBot(config.botToken)
-    @Transient
-    private val database = config.params ?.database ?: config.database.database
 
-    override suspend fun getCommands(): List<BotCommand> = config.plugins.flatMap {
-        it.getCommands()
-    }
-
-    override suspend fun BehaviourContext.invoke(database: Database, params: Map<String, Any>) {
+    override suspend fun BehaviourContext.invoke(
+        database: Database,
+        params: JsonObject
+    ) {
         config.plugins.forEach {
             it.apply { invoke(database, params) }
         }
-        val commands = getCommands()
-        val futureUnavailable = commands.drop(botCommandsLimit.last)
-        if (futureUnavailable.isNotEmpty()) {
-            println("Next commands are out of range in setting command request and will be unavailable from autocompleting: $futureUnavailable")
-        }
-        safelyWithoutExceptions { setMyCommands(commands.take(botCommandsLimit.last)) }
     }
 
     /**
@@ -47,7 +41,24 @@ data class PlaguBot(
      */
     suspend fun start(
         scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-    ): Job = bot.buildBehaviourWithLongPolling(scope) {
-        invoke(database, paramsMap)
+    ): Job {
+        val koinApp = KoinApplication.init()
+        koinApp.modules(
+            module {
+                single { config }
+                single { config.plugins }
+                single { config.database }
+                single(named(defaultDatabaseParamsName)) { config.database.database }
+                single { defaultJsonFormat }
+                single(named(DefaultPlaguBotParamsKey)) { this@PlaguBot }
+            }
+        )
+        lateinit var behaviourContext: BehaviourContext
+        bot.buildBehaviour(scope = scope) {
+            invoke(config.database.database, json)
+            behaviourContext = this
+        }
+        GlobalContext.startKoin(koinApp)
+        return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext)
     }
 }

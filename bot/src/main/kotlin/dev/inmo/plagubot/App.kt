@@ -3,6 +3,7 @@ package dev.inmo.plagubot
 import dev.inmo.plagubot.config.*
 import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.json.jsonObject
 import java.io.File
 
 /**
@@ -12,7 +13,8 @@ import java.io.File
 suspend fun main(args: Array<String>) {
     val (configPath) = args
     val file = File(configPath)
-    val config = configAndPluginsConfigJsonFormat.decodeFromString(PluginsConfigurationSerializer, file.readText()) as Config
+    val json = defaultJsonFormat.parseToJsonElement(file.readText()).jsonObject
+    val config = defaultJsonFormat.decodeFromJsonElement(Config.serializer(), json)
 
-    PlaguBot(config).start().join()
+    PlaguBot(json, config).start().join()
 }
