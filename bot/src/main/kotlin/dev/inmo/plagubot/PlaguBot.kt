@@ -1,5 +1,6 @@
 package dev.inmo.plagubot
 
+import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
@@ -56,15 +57,20 @@ data class PlaguBot(
     }
 
     override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
-        config.plugins.forEach {
-            runCatching {
-                with(it) {
-                    setupBotPlugin(koin)
+        config.plugins.map {
+            launch {
+                runCatchingSafely {
+                    logger.info("Start loading of $it")
+                    with(it) {
+                        setupBotPlugin(koin)
+                    }
+                }.onFailure { e ->
+                    logger.log(Level.WARNING, "Unable to load bot part of $it", e)
+                }.onSuccess {
+                    logger.info("Complete loading of $it")
                 }
-            }.onFailure { e ->
-                logger.log(Level.WARNING, "Unable to load bot part of $it", e)
             }
-        }
+        }.joinAll()
     }
 
     /**
