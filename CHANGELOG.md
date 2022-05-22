@@ -1,9 +1,9 @@
 # Changelog
 
-## 1.0.1
+## 1.1.0
 
 * `Versions`
-  * `tgbotapi`: `1.1.3`
+  * `tgbotapi`: `2.0.0`
   * `microutils`: `0.10.5`
 * `Plugin`:
   * All plugins will be loaded in parallel
