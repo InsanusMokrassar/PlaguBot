@@ -2,10 +2,11 @@
 
 kt = "1.6.21"
 kt-serialization = "1.3.3"
-kt-coroutines = "1.6.1"
+kt-coroutines = "1.6.2"
 
-microutils = "0.10.5"
-tgbotapi = "2.0.0"
+microutils = "0.11.0"
+tgbotapi = "2.0.2"
+kslog = "0.3.0"
 
 jb-exposed = "0.38.2"
 jb-dokka = "1.6.21"
@@ -13,9 +14,9 @@ jb-dokka = "1.6.21"
 sqlite = "3.36.0.3"
 
 klock = "2.7.0"
-uuid = "0.4.0"
+uuid = "0.4.1"
 
-ktor = "2.0.1"
+ktor = "2.0.2"
 
 gh-release = "2.3.7"
 
@@ -32,6 +33,7 @@ kt-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json"
 
 tgbotapi = { module = "dev.inmo:tgbotapi", version.ref = "tgbotapi" }
 microutils-repos-exposed = { module = "dev.inmo:micro_utils.repos.exposed", version.ref = "microutils" }
+kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 

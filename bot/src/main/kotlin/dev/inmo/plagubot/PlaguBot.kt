@@ -1,5 +1,6 @@
 package dev.inmo.plagubot
 
+import dev.inmo.kslog.common.*
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
@@ -29,8 +30,6 @@ data class PlaguBot(
     private val config: Config
 ) : Plugin {
     @Transient
-    private val logger = Logger.getLogger("PlaguBot")
-    @Transient
     private val bot = telegramBot(config.botToken)
 
     override fun Module.setupDI(database: Database, params: JsonObject) {
@@ -50,7 +49,7 @@ data class PlaguBot(
                         }
                     }
                 }.onFailure { e ->
-                    logger.log(Level.WARNING, "Unable to load DI part of $it", e)
+                    logger.log(LogLevel.WARNING, "Unable to load DI part of $it", e)
                 }.getOrNull()
             }
         )
@@ -65,7 +64,7 @@ data class PlaguBot(
                         setupBotPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.log(Level.WARNING, "Unable to load bot part of $it", e)
+                    logger.log(LogLevel.WARNING, "Unable to load bot part of $it", e)
                 }.onSuccess {
                     logger.info("Complete loading of $it")
                 }
