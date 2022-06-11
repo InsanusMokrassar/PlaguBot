@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.1
+
+* `Versions`
+  * `coroutines`: `1.6.2`
+  * `tgbotapi`: `2.0.2`
+  * `microutils`: `0.11.0`
+  * `ktor`: `2.0.2`
+  * `uuid`: `0.4.1`
+
 ## 1.1.0
 
 * `Versions`

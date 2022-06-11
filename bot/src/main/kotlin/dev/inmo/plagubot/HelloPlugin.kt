@@ -1,5 +1,6 @@
 package dev.inmo.plagubot
 
+import dev.inmo.kslog.common.*
 import dev.inmo.tgbotapi.extensions.api.bot.getMe
 import dev.inmo.tgbotapi.extensions.api.send.reply
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
@@ -30,8 +31,8 @@ class HelloPlugin : Plugin {
     }
 
     override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
-        println(koin.get<HelloPluginConfig>().print)
-        println(getMe())
+        logger.d { koin.get<HelloPluginConfig>().print }
+        logger.dS { getMe().toString() }
         onCommand("hello_world") {
             reply(it, "Hello :)")
         }

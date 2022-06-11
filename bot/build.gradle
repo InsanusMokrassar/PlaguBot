@@ -17,6 +17,7 @@ dependencies {
 
     api libs.tgbotapi
     api libs.microutils.repos.exposed
+    api libs.kslog
 
     api libs.sqlite
 
