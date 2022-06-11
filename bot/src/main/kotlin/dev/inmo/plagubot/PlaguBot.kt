@@ -49,7 +49,7 @@ data class PlaguBot(
                         }
                     }
                 }.onFailure { e ->
-                    logger.log(LogLevel.WARNING, "Unable to load DI part of $it", e)
+                    logger.w("Unable to load DI part of $it", e)
                 }.getOrNull()
             }
         )
@@ -59,14 +59,14 @@ data class PlaguBot(
         config.plugins.map {
             launch {
                 runCatchingSafely {
-                    logger.info("Start loading of $it")
+                    logger.i("Start loading of $it")
                     with(it) {
                         setupBotPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.log(LogLevel.WARNING, "Unable to load bot part of $it", e)
+                    logger.w("Unable to load bot part of $it", e)
                 }.onSuccess {
-                    logger.info("Complete loading of $it")
+                    logger.i("Complete loading of $it")
                 }
             }
         }.joinAll()
@@ -78,26 +78,26 @@ data class PlaguBot(
     suspend fun start(
         scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     ): Job {
-        logger.info("Start initialization")
+        logger.i("Start initialization")
         val koinApp = KoinApplication.init()
         koinApp.modules(
             module {
                 setupDI(config.databaseConfig.database, json)
             }
         )
-        logger.info("Modules loaded")
+        logger.i("Modules loaded")
         GlobalContext.startKoin(koinApp)
-        logger.info("Koin started")
+        logger.i("Koin started")
         lateinit var behaviourContext: BehaviourContext
         bot.buildBehaviour(scope = scope) {
-            logger.info("Start setup of bot part")
+            logger.i("Start setup of bot part")
             behaviourContext = this
             setupBotPlugin(koinApp.koin)
             deleteWebhook()
         }
-        logger.info("Behaviour builder has been setup")
+        logger.i("Behaviour builder has been setup")
         return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext).also {
-            logger.info("Long polling has been started")
+            logger.i("Long polling has been started")
         }
     }
 }

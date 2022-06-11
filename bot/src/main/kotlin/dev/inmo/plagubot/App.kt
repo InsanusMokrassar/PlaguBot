@@ -2,7 +2,6 @@ package dev.inmo.plagubot
 
 import dev.inmo.kslog.common.*
 import dev.inmo.plagubot.config.*
-import kotlinx.coroutines.*
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.jsonObject
 import java.io.File
