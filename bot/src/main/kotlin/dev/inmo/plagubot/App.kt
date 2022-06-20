@@ -1,7 +1,9 @@
 package dev.inmo.plagubot
 
-import dev.inmo.kslog.common.*
-import dev.inmo.plagubot.config.*
+import dev.inmo.kslog.common.KSLog
+import dev.inmo.kslog.common.i
+import dev.inmo.plagubot.config.Config
+import dev.inmo.plagubot.config.defaultJsonFormat
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.jsonObject
 import java.io.File
