@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.2
+
+* `Versions`
+  * `tgbotapi`: `2.0.3`
+  * `microutils`: `0.11.3`
+  * `kslog`: `0.3.1`
+* `Plugin`:
+  * Now it is possible to use `object`s of plugins instead of classes
+
 ## 1.1.1
 
 * `Versions`

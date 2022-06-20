@@ -1,11 +1,14 @@
 package dev.inmo.plagubot
 
 import dev.inmo.kslog.common.*
+import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
-import dev.inmo.plagubot.config.*
+import dev.inmo.plagubot.config.Config
+import dev.inmo.plagubot.config.defaultJsonFormat
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
-import dev.inmo.tgbotapi.extensions.behaviour_builder.*
+import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
+import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
@@ -18,12 +21,14 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.module.Module
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
-import java.util.logging.Level
-import java.util.logging.Logger
 
 val Scope.plagubot: PlaguBot
     get() = get()
 
+val Koin.plagubot: PlaguBot
+    get() = get()
+
+@OptIn(Warning::class)
 @Serializable
 data class PlaguBot(
     private val json: JsonObject,
@@ -56,17 +61,17 @@ data class PlaguBot(
     }
 
     override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
-        config.plugins.map {
+        config.plugins.map { plugin ->
             launch {
                 runCatchingSafely {
-                    logger.i("Start loading of $it")
-                    with(it) {
+                    logger.i("Start loading of $plugin")
+                    with(plugin) {
                         setupBotPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to load bot part of $it", e)
+                    logger.w("Unable to load bot part of $plugin", e)
                 }.onSuccess {
-                    logger.i("Complete loading of $it")
+                    logger.i("Complete loading of $plugin")
                 }
             }
         }.joinAll()
