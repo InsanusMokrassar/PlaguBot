@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 @Serializable
 @SerialName("Hello")
-class HelloPlugin : Plugin {
+object HelloPlugin : Plugin {
     @Serializable
     data class HelloPluginConfig(
         val print: String

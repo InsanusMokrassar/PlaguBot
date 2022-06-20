@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2
+
+* `Plugin`:
+  * Now it is possible to use `object`s of plugins instead of classes
+
 ## 1.1.1
 
 * `Versions`

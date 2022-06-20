@@ -13,7 +13,8 @@ class PluginSerializer : KSerializer<Plugin> {
         get() = String.serializer().descriptor
 
     override fun deserialize(decoder: Decoder): Plugin {
-        return Class.forName(decoder.decodeString()).getDeclaredConstructor().newInstance() as Plugin
+        val kclass = Class.forName(decoder.decodeString()).kotlin
+        return (kclass.objectInstance ?: kclass.constructors.first { it.parameters.isEmpty() }.call()) as Plugin
     }
 
     override fun serialize(encoder: Encoder, value: Plugin) {

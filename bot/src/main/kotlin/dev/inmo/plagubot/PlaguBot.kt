@@ -56,17 +56,17 @@ data class PlaguBot(
     }
 
     override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
-        config.plugins.map {
+        config.plugins.map { plugin ->
             launch {
                 runCatchingSafely {
-                    logger.i("Start loading of $it")
-                    with(it) {
+                    logger.i("Start loading of $plugin")
+                    with(plugin) {
                         setupBotPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to load bot part of $it", e)
+                    logger.w("Unable to load bot part of $plugin", e)
                 }.onSuccess {
-                    logger.i("Complete loading of $it")
+                    logger.i("Complete loading of $plugin")
                 }
             }
         }.joinAll()
