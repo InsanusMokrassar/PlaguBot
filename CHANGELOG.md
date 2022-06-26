@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1
+
+* `Versions`
+  * `tgbotapi`: `2.1.1`
+  * `microutils`: `0.11.6`
+  * `kslog`: `0.3.2`
+
 ## 1.2.0
 
 * `Versions`
