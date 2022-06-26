@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0
+## 1.2.1
 
 * `Versions`
   * `tgbotapi`: `2.1.1`
