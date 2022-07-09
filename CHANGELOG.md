@@ -3,6 +3,11 @@
 ## 1.2.2
 
 * `Versions`
+  * `tgbotapi`: `2.1.3`
+
+## 1.2.2
+
+* `Versions`
   * `tgbotapi`: `2.1.2`
   * `microutils`: `0.11.12`
   * `coroutines`: `1.6.3`
