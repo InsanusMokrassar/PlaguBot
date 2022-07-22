@@ -2,10 +2,10 @@
 
 kt = "1.6.21"
 kt-serialization = "1.3.3"
-kt-coroutines = "1.6.3"
+kt-coroutines = "1.6.4"
 
-microutils = "0.11.12"
-tgbotapi = "2.2.0"
+microutils = "0.11.13"
+tgbotapi = "2.2.1"
 kslog = "0.3.2"
 
 jb-exposed = "0.38.2"
