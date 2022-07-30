@@ -6,7 +6,7 @@ kt-coroutines = "1.6.4"
 
 microutils = "0.11.13"
 tgbotapi = "2.2.1"
-kslog = "0.3.2"
+kslog = "0.4.1"
 
 jb-exposed = "0.38.2"
 jb-dokka = "1.6.21"
