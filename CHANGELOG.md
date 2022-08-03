@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1
+
+* `Versions`:
+  * `tgbotapi`: `2.2.2`
+  * `kslog`: `0.4.2`
+
 ## 1.4.0
 
 * `Versions`:
