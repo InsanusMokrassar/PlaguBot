@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.0
+
+* `Versions`:
+  * `kotlin`: `1.7.10`
+  * `serialization`: `1.4.0-RC`
+  * `tgbotapi`: `3.0.0`
+  * `kslog`: `0.5.0`
+  * `uuid`: `0.5.0`
+  * `exposed`: `0.39.2`
+  * `microutils`: `0.12.0`
+
 ## 1.4.1
 
 * `Versions`:
