@@ -5,7 +5,7 @@
 * `Versions`:
   * `kotlin`: `1.7.10`
   * `serialization`: `1.4.0-RC`
-  * `tgbotapi`: `3.0.0`
+  * `tgbotapi`: `3.0.2`
   * `kslog`: `0.5.0`
   * `uuid`: `0.5.0`
   * `exposed`: `0.39.2`
