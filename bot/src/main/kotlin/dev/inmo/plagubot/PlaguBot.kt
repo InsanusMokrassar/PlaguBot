@@ -62,7 +62,7 @@ data class PlaguBot(
         )
     }
 
-    override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
+    override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
         config.plugins.map { plugin ->
             launch {
                 runCatchingSafely {
@@ -113,7 +113,7 @@ data class PlaguBot(
             behaviourContext = this
             setupBotPlugin(koinApp.koin)
             deleteWebhook()
-        }
+        }.start()
         logger.i("Behaviour builder has been setup")
         return bot.startGettingOfUpdatesByLongPolling(scope = behaviourContext, updatesFilter = behaviourContext).also {
             logger.i("Long polling has been started")
