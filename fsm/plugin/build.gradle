@@ -1,0 +1,21 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id "org.jetbrains.kotlin.plugin.serialization"
+}
+
+project.group="$group"
+project.version="$version"
+
+apply from: "publish.gradle"
+
+dependencies {
+    implementation libs.kt.stdlib
+
+    api libs.tgbotapi.behaviourBuilder.fsm
+    api project(":plagubot.plugin")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

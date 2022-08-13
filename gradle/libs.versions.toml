@@ -32,6 +32,7 @@ kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", vers
 kt-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kt-serialization" }
 
 tgbotapi = { module = "dev.inmo:tgbotapi", version.ref = "tgbotapi" }
+tgbotapi-behaviourBuilder-fsm = { module = "dev.inmo:tgbotapi.behaviour_builder.fsm", version.ref = "tgbotapi" }
 microutils-repos-exposed = { module = "dev.inmo:micro_utils.repos.exposed", version.ref = "microutils" }
 kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
