@@ -1,6 +1,8 @@
 package dev.inmo.plagubot
 
+import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
+import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContextWithFSM
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
@@ -26,4 +28,7 @@ interface Plugin {
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
     ) {}
+    suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
+        (this as BehaviourContext).setupBotPlugin(koin)
+    }
 }

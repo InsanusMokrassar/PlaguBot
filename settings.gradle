@@ -1,4 +1,4 @@
-String[] toInclude = [":bot", ":plugin", ":fsm:bot", ":fsm:plugin"]
+String[] toInclude = [":bot", ":plugin"]
 
 rootProject.name = 'plagubot'
 

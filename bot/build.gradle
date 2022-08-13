@@ -16,6 +16,7 @@ dependencies {
     api libs.jb.exposed.jdbc
 
     api libs.tgbotapi
+    api libs.tgbotapi.behaviourBuilder.fsm
     api libs.microutils.repos.exposed
     api libs.kslog
 

@@ -3,12 +3,14 @@ package dev.inmo.plagubot
 import dev.inmo.kslog.common.*
 import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
-import dev.inmo.plagubot.config.Config
-import dev.inmo.plagubot.config.defaultJsonFormat
+import dev.inmo.micro_utils.fsm.common.State
+import dev.inmo.micro_utils.fsm.common.StatesManager
+import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManager
+import dev.inmo.micro_utils.fsm.common.managers.InMemoryDefaultStatesManagerRepo
+import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
-import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
-import dev.inmo.tgbotapi.extensions.behaviour_builder.buildBehaviour
+import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
@@ -94,7 +96,19 @@ data class PlaguBot(
         GlobalContext.startKoin(koinApp)
         logger.i("Koin started")
         lateinit var behaviourContext: BehaviourContext
-        bot.buildBehaviour(scope = scope) {
+        bot.buildBehaviourWithFSM(
+            scope = scope,
+            defaultExceptionsHandler = {
+                logger.e("Something went wrong", it)
+            },
+            statesManager = koinApp.koin.getOrNull<StatesManager<State>>() ?: DefaultStatesManager(
+                InMemoryDefaultStatesManagerRepo<State>()
+            ),
+            onStateHandlingErrorHandler = koinApp.koin.getOrNull<FallbackStateHandler<State>>() ?: { state, e ->
+                logger.eS(e) { "Unable to handle state $state" }
+                null
+            }
+        ) {
             logger.i("Start setup of bot part")
             behaviourContext = this
             setupBotPlugin(koinApp.koin)
