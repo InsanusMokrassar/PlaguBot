@@ -2,6 +2,11 @@
 
 ## 2.1.0
 
+* `Versions`:
+  * `tgbotapi`: `3.1.0`
+  * `ktor`: `2.1.0`
+  * `microutils`: `0.12.1`
+
 ## 2.0.0
 
 * `Versions`:
@@ -11,7 +16,6 @@
   * `kslog`: `0.5.0`
   * `uuid`: `0.5.0`
   * `exposed`: `0.39.2`
-  * `microutils`: `0.12.0`
 
 ## 1.4.1
 
