@@ -104,7 +104,7 @@ data class PlaguBot(
             statesManager = koinApp.koin.getOrNull<StatesManager<State>>() ?: DefaultStatesManager(
                 InMemoryDefaultStatesManagerRepo<State>()
             ),
-            onStateHandlingErrorHandler = koinApp.koin.getOrNull<FallbackStateHandler<State>>() ?: { state, e ->
+            onStateHandlingErrorHandler = koinApp.koin.getOrNull<StateHandlingErrorHandler<State>>() ?: { state, e ->
                 logger.eS(e) { "Unable to handle state $state" }
                 null
             }
