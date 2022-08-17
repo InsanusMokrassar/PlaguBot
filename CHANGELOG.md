@@ -3,9 +3,13 @@
 ## 2.1.0
 
 * `Versions`:
-  * `tgbotapi`: `3.1.0`
+  * `tgbotapi`: `3.1.1`
   * `ktor`: `2.1.0`
   * `microutils`: `0.12.1`
+* `Plugins`:
+  * New fum of `Plugin` with `BehaviourContextWithFSM` receiver
+* `Bot`:
+  * Now bot uses `buildBehaviourWithFSM` to be able to setup bot with FSM
 
 ## 2.0.0
 
