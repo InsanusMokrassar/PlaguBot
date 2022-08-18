@@ -1,6 +1,8 @@
 package dev.inmo.plagubot
 
+import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
+import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContextWithFSM
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
@@ -23,7 +25,20 @@ interface Plugin {
         database: Database,
         params: JsonObject
     ) {}
+
+    /**
+     * Override this method in cases when you want to declare common bot behaviour. In case you wish to use FSM, you
+     * should override the method with receiver [BehaviourContextWithFSM]
+     */
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
     ) {}
+    /**
+     * Override this method in cases when you want to declare full behaviour of the plugin. It is recommended to declare
+     * common logic of plugin in the [setupBotPlugin] with [BehaviourContext] receiver and use override this one
+     * for the FSM configuration
+     */
+    suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
+        (this as BehaviourContext).setupBotPlugin(koin)
+    }
 }
