@@ -5,8 +5,7 @@ import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
-import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManager
-import dev.inmo.micro_utils.fsm.common.managers.InMemoryDefaultStatesManagerRepo
+import dev.inmo.micro_utils.fsm.common.managers.*
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
@@ -102,7 +101,8 @@ data class PlaguBot(
                 logger.e("Something went wrong", it)
             },
             statesManager = koinApp.koin.getOrNull<StatesManager<State>>() ?: DefaultStatesManager(
-                InMemoryDefaultStatesManagerRepo<State>()
+                koinApp.koin.getOrNull<DefaultStatesManagerRepo<State>>() ?: InMemoryDefaultStatesManagerRepo<State>(),
+                onStartContextsConflictResolver = { _, _ -> false }
             ),
             onStateHandlingErrorHandler = koinApp.koin.getOrNull<StateHandlingErrorHandler<State>>() ?: { state, e ->
                 logger.eS(e) { "Unable to handle state $state" }
