@@ -31,11 +31,12 @@ object HelloPlugin : Plugin {
         }
     }
 
-    override suspend fun BehaviourContext.setupBotPlugin(koin: Koin) {
-        logger.d { koin.get<HelloPluginConfig>().print }
+    override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
+        val toPrint = koin.getOrNull<HelloPluginConfig>() ?.print ?: "Hello :)"
+        logger.d { toPrint }
         logger.dS { getMe().toString() }
         onCommand("hello_world") {
-            reply(it, "Hello :)")
+            reply(it, toPrint)
         }
     }
 }
