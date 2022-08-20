@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.1
+
+* `Bot`:
+  * Now it is possible to get bot from `koin`
+
 ## 2.1.0
 
 * `Versions`:

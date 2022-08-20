@@ -45,6 +45,7 @@ data class PlaguBot(
         single { config.databaseConfig.database }
         single { defaultJsonFormat }
         single { this@PlaguBot }
+        single { bot }
 
         includes(
             config.plugins.mapNotNull {
