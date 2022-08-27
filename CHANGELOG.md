@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0
+
+* `Versions`:
+  * `serialization`: `1.4.0`
+  * `tgbotapi`: `3.2.0`
+  * `microutils`: `0.12.4`
+  * `kslog`: `0.5.1`
+
 ## 2.1.1
 
 * `Bot`:
