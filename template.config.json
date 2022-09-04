@@ -4,7 +4,10 @@
     "driver": "org.sqlite.JDBC",
     "username": "OPTIONAL username",
     "password": "OPTIONAL password",
-    "initAutomatically": false
+    "reconnectOptions": {
+      "attempts": 3,
+      "delay": 1000
+    }
   },
   "botToken": "1234567890:ABCDEFGHIJKLMNOP_qrstuvwxyz12345678",
   "plugins": [

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+* `Bot`:
+  * Add option `reconnectOptions` in database config
+
 ## 2.2.0
 
 * `Versions`:
