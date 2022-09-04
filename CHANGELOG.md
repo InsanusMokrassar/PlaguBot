@@ -2,6 +2,9 @@
 
 ## 2.3.0
 
+* `Bot`:
+  * Add option `waitForConnection` in database config
+
 ## 2.2.0
 
 * `Versions`:
