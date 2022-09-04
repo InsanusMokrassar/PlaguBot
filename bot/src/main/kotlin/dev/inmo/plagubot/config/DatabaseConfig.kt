@@ -1,5 +1,8 @@
 package dev.inmo.plagubot.config
 
+import dev.inmo.kslog.common.e
+import dev.inmo.kslog.common.logger
+import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.jetbrains.exposed.sql.Database
@@ -18,29 +21,22 @@ data class DatabaseConfig(
     val driver: String = JDBC::class.qualifiedName!!,
     val username: String = "",
     val password: String = "",
-    val waitForConnection: Boolean = true
+    val reconnectOptions: DBConnectOptions? = DBConnectOptions()
 ) {
     @Transient
-    val database: Database by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-        while (true) {
-            return@lazy try {
-                Database.connect(
-                    url,
-                    driver,
-                    username,
-                    password
-                ).also {
-                    it.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
-                }
-            } catch (e: Throwable) {
-                if (waitForConnection) {
-                    Thread.sleep(1000L)
-                    continue
-                } else {
-                    throw e
-                }
+    val database: Database = (0 until (reconnectOptions ?.attempts ?: 1)).firstNotNullOfOrNull {
+        runCatching {
+            Database.connect(
+                url,
+                driver,
+                username,
+                password
+            ).also {
+                it.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
             }
-        }
-        error("Unable to get database by some reason")
-    }
+        }.onFailure {
+            logger.e(it)
+            Thread.sleep(reconnectOptions ?.delay ?: return@onFailure)
+        }.getOrNull()
+    } ?: error("Unable to create database")
 }
