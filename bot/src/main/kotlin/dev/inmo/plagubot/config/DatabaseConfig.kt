@@ -33,6 +33,7 @@ data class DatabaseConfig(
                 password
             ).also {
                 it.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
+                it.connector().close()
             }
         }.onFailure {
             logger.e(it)
