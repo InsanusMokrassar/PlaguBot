@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.1
+
+* `Versions`:
+  * `klock`: `3.1.0`
+  * `tgbotapi`: `3.2.1`
+  * `microutils`: `0.12.11`
+  * `ktor`: `2.1.1`
+
 ## 2.3.0
 
 * `Bot`:
