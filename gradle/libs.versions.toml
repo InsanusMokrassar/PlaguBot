@@ -4,8 +4,8 @@ kt = "1.7.10"
 kt-serialization = "1.4.0"
 kt-coroutines = "1.6.4"
 
-microutils = "0.12.4"
-tgbotapi = "3.2.0"
+microutils = "0.12.11"
+tgbotapi = "3.2.1"
 kslog = "0.5.1"
 
 jb-exposed = "0.39.2"
@@ -13,10 +13,10 @@ jb-dokka = "1.7.10"
 
 sqlite = "3.36.0.3"
 
-klock = "3.0.0"
+klock = "3.1.0"
 uuid = "0.5.0"
 
-ktor = "2.1.0"
+ktor = "2.1.1"
 
 gh-release = "2.4.1"
 
