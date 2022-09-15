@@ -2,6 +2,11 @@
 
 ## 2.3.2
 
+* `Versions`:
+  * `tgbotapi`: `3.2.3`
+  * `microutils`: `0.12.13`
+  * `kslog`: `0.5.2`
+
 ## 2.3.1
 
 * `Versions`:

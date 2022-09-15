@@ -4,9 +4,9 @@ kt = "1.7.10"
 kt-serialization = "1.4.0"
 kt-coroutines = "1.6.4"
 
-microutils = "0.12.11"
-tgbotapi = "3.2.1"
-kslog = "0.5.1"
+microutils = "0.12.13"
+tgbotapi = "3.2.3"
+kslog = "0.5.2"
 
 jb-exposed = "0.39.2"
 jb-dokka = "1.7.10"
