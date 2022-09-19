@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.3
+
+* `Versions`:
+  * `tgbotapi`: `3.2.6`
+  * `sqlite`: `3.39.3.0`
+
 ## 2.3.2
 
 * `Versions`:
