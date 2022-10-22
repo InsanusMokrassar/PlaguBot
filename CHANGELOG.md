@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4.0
+
+* `Versions`:
+  * `kotlin`: `1.7.20`
+  * `serialization`: `1.4.1`
+  * `tgbotapi`: `3.3.0`
+  * `microutils`: `0.13.1`
+  * `klock`: `3.2.0`
+  * `ktor`: `2.1.2`
+
 ## 2.3.4
 
 * `Versions`:
