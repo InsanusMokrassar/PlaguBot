@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.4.1
+
+* `Versions`:
+  * `microutils`: `0.13.2`
+  * `tgbotapi`: `3.3.1`
+  * `klock`: `3.3.0`
+  * `ktor`: `2.1.3`
+  * `koin`: `3.2.2`
+
 ## 2.4.0
 
 * `Versions`:
