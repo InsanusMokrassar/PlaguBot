@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0
+
+* `Versions`:
+  * `microutils`: `0.14.0`
+  * `tgbotapi`: `4.0.0`
+  * `kslog`: `0.5.3`
+  * `exposed`: `0.40.1`
+  * `klock`: `3.3.1`
+
 ## 2.4.1
 
 * `Versions`:
