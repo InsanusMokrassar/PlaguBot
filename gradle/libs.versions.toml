@@ -1,11 +1,11 @@
 [versions]
 
-kt = "1.7.20"
+kt = "1.7.21"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
-microutils = "0.14.0"
-tgbotapi = "4.0.0"
+microutils = "0.14.1"
+tgbotapi = "4.1.0"
 kslog = "0.5.3"
 
 jb-exposed = "0.40.1"
@@ -13,8 +13,8 @@ jb-dokka = "1.7.20"
 
 sqlite = "3.39.3.0"
 
-klock = "3.3.1"
-uuid = "0.5.0"
+klock = "3.4.0"
+uuid = "0.6.0"
 
 ktor = "2.1.3"
 
