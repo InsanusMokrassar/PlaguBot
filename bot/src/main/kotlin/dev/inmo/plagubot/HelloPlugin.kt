@@ -11,7 +11,7 @@ import dev.inmo.tgbotapi.extensions.behaviour_builder.expectations.waitText
 import dev.inmo.tgbotapi.extensions.behaviour_builder.expectations.waitTextMessage
 import dev.inmo.tgbotapi.extensions.behaviour_builder.triggers_handling.onCommand
 import dev.inmo.tgbotapi.extensions.behaviour_builder.triggers_handling.onUnhandledCommand
-import dev.inmo.tgbotapi.types.ChatId
+import dev.inmo.tgbotapi.types.IdChatIdentifier
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -38,9 +38,9 @@ object HelloPlugin : Plugin {
     }
 
     private sealed interface InternalFSMState : State {
-        override val context: ChatId
-        data class DidntSaidHello(override val context: ChatId) : InternalFSMState
-        data class SaidHelloOnce(override val context: ChatId) : InternalFSMState
+        override val context: IdChatIdentifier
+        data class DidntSaidHello(override val context: IdChatIdentifier) : InternalFSMState
+        data class SaidHelloOnce(override val context: IdChatIdentifier) : InternalFSMState
     }
 
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
