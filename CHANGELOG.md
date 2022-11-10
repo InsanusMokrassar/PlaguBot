@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.1.0
+
+* `Versions`:
+  * `kotlin`: `1.7.21`
+  * `microutils`: `0.14.1`
+  * `tgbotapi`: `4.1.0`
+  * `klock`: `3.4.0`
+  * `uuid`: `0.6.0`
+
 ## 3.0.0
 
 * `Versions`:
