@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.1
+
+* `Versions`:
+  * `tgbotapi`: `4.1.1`
+
 ## 3.1.0
 
 * `Versions`:
