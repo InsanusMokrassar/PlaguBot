@@ -4,11 +4,11 @@ kt = "1.7.21"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
-microutils = "0.14.1"
+microutils = "0.14.2"
 tgbotapi = "4.1.1"
 kslog = "0.5.3"
 
-jb-exposed = "0.40.1"
+jb-exposed = "0.41.1"
 jb-dokka = "1.7.20"
 
 sqlite = "3.39.3.0"
