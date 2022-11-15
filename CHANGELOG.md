@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.2
+
+* `Versions`:
+  * `microutils`: `0.14.2`
+  * `exposed`: `0.41.1`
+
 ## 3.1.1
 
 * `Versions`:
