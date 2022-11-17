@@ -16,6 +16,7 @@ allprojects {
         mavenCentral()
         mavenLocal()
         maven { url 'https://jitpack.io' }
+        maven { url "https://git.inmo.dev/api/packages/InsanusMokrassar/maven" }
     }
 }
 
