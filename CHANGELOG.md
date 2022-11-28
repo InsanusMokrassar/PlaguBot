@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.4
+
+* `Versions`:
+  * `tgbotapi`: `4.1.3`
+  * `microutils`: `0.14.4`
+
 ## 3.1.3
 
 * `Versions`:
