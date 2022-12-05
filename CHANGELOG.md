@@ -2,6 +2,13 @@
 
 ## 3.2.0
 
+* `Versions`:
+  * `kotlin`: `1.7.22`
+  * `tgbotapi`: `4.2.0`
+  * `microutils`: `0.15.0`
+  * `kslog`: `0.5.4`
+  * `sqlite`: `3.40.0.0`
+
 ## 3.1.4
 
 * `Versions`:
