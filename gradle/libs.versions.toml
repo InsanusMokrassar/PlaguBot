@@ -4,8 +4,8 @@ kt = "1.7.22"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
-microutils = "0.16.2"
-tgbotapi = "4.2.2"
+microutils = "0.16.4"
+tgbotapi = "4.2.3"
 kslog = "0.5.4"
 
 jb-exposed = "0.41.1"
