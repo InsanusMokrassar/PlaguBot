@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.1
+
+* `Versions`:
+    * `tgbotapi`: `5.0.1`
+    * `microutils`: `0.16.6`
+    * `ktor`: `2.2.2`
+
 ## 3.3.0
 
 * `Versions`:
