@@ -63,20 +63,18 @@ data class PlaguBot(
     }
 
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
-        config.plugins.map { plugin ->
-            launch {
-                runCatchingSafely {
-                    logger.i("Start loading of $plugin")
-                    with(plugin) {
-                        setupBotPlugin(koin)
-                    }
-                }.onFailure { e ->
-                    logger.w("Unable to load bot part of $plugin", e)
-                }.onSuccess {
-                    logger.i("Complete loading of $plugin")
+        config.plugins.forEach { plugin ->
+            runCatchingSafely {
+                logger.i("Start loading of $plugin")
+                with(plugin) {
+                    setupBotPlugin(koin)
                 }
+            }.onFailure { e ->
+                logger.w("Unable to load bot part of $plugin", e)
+            }.onSuccess {
+                logger.i("Complete loading of $plugin")
             }
-        }.joinAll()
+        }
     }
 
     /**

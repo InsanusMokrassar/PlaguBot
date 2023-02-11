@@ -2,6 +2,8 @@
 
 ## 3.4.1
 
+* `setupBotPlugin` now works synchronously
+
 ## 3.4.0
 
 * `Versions`:
