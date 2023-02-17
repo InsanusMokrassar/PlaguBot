@@ -4,8 +4,8 @@ kt = "1.7.22"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
-microutils = "0.16.8"
-tgbotapi = "5.1.0"
+microutils = "0.16.10"
+tgbotapi = "5.2.0"
 kslog = "0.5.4"
 
 jb-exposed = "0.41.1"
@@ -20,7 +20,7 @@ ktor = "2.2.3"
 
 gh-release = "2.4.1"
 
-koin = "3.2.2"
+koin = "3.3.2"
 
 [libraries]
 
