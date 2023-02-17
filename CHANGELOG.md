@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.5.0
+
+* `Versions`:
+  * `tgbotapi`: `5.2.0`
+  * `microutils`: `0.16.10`
+  * `koin`: `3.3.2`
+
 ## 3.4.1
 
 * `setupBotPlugin` now works synchronously
