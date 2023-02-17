@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.5.0
+
 ## 3.4.1
 
 * `setupBotPlugin` now works synchronously
