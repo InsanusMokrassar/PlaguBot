@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.1
+
+* `Versions`:
+  * `tgbotapi`: `6.0.1`
+  * `microutils`: `17.0.1`
+  * `ktor`: `2.2.4`
+
+## 4.0.0
+
+* `Versions`:
+  * `kotlin`: `1.8.10`
+  * `tgbotapi`: `6.0.0`
+  * `microutils`: `0.17.0`
+
 ## 3.5.0
 
 * `Versions`:
