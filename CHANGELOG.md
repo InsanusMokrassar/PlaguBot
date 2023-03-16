@@ -3,6 +3,11 @@
 ## 5.0.0
 
 * `Versions`:
+  * `tgbotapi`: `7.0.1`
+
+## 5.0.0
+
+* `Versions`:
   * `tgbotapi`: `7.0.0`
   * `microutils`: `0.17.5`
 
