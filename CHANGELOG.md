@@ -2,6 +2,14 @@
 
 ## 5.0.2
 
+* `Versions`:
+  * `kotlin`: `1.8.20`
+  * `microutils`: `0.17.8`
+  * `tgbotapi`: `7.0.2`
+  * `kslog`: `1.1.1`
+  * `ktor`: `2.3.0`
+  * `koin`: `3.4.0`
+
 ## 5.0.1
 
 * `Versions`:
