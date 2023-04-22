@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+* `Versions`:
+  * `tgbotapi`: `7.1.0`
+  * `sqlite`: `3.41.2.1`
+
 ## 5.0.2
 
 * `Versions`:
