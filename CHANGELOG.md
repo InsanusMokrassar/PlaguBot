@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.1
+
+* `Versions`:
+    * `kotlin`: `1.8.21`
+    * `microutils`: `0.18.0`
+    * `tgbotapi`: `7.1.1`
+
 ## 5.1.0
 
 * `Versions`:
