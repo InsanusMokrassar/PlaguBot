@@ -2,6 +2,10 @@
 
 ## 5.1.2
 
+* `Versions`:
+  * `microutils`: `0.18.1`
+  * `tgbotapi`: `7.1.2`
+
 ## 5.1.1
 
 * `Versions`:
