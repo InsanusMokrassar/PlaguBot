@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.3
+
+* `Versions`:
+  * `serialization`: `1.5.1`
+  * `microutils`: `0.18.4`
+  * `tgbotapi`: `7.1.3`
+
 ## 5.1.2
 
 * `Versions`:
