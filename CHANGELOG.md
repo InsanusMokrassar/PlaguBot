@@ -2,6 +2,11 @@
 
 ## 6.0.0
 
+* `Versions`:
+  * `microutils`: `0.19.0`
+  * `tgbotapi`: `8.0.0`
+  * `klock`: `4.0.2`
+
 ## 5.1.3
 
 * `Versions`:
