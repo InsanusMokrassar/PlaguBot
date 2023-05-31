@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.0
+
+* `Versions`:
+  * `microutils`: `0.19.1`
+  * `tgbotapi`: `8.0.0`
+  * `klock`: `4.0.3`
+
 ## 5.1.3
 
 * `Versions`:
