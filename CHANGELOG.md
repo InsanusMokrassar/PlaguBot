@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.1
+
+* `Version`:
+  * `microutils`: `0.19.2`
+  * `tgbotapi`: `8.0.1`
+  * `uuid`: `0.7.1`
+  * `ktor`: `2.3.1`
+  * `koin`: `3.4.1`
+
 ## 6.0.0
 
 * `Versions`:
