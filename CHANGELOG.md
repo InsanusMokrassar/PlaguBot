@@ -2,6 +2,13 @@
 
 ## 6.1.0
 
+* `Version`:
+  * `kotlin`: `1.8.22`
+  * `microutils`: `0.19.4`
+  * `tgbotapi`: `8.1.0`
+  * `koin`: `3.4.2`
+  * `sqlite`: `3.42.0.0`
+
 ## 6.0.1
 
 * `Version`:
