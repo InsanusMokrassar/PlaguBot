@@ -2,6 +2,13 @@
 
 ## 7.1.0
 
+* `Version`:
+  * `microutils`: `0.19.9`
+  * `tgbotapi`: `9.1.0`
+  * `ktor`: `2.3.3`
+  * `coroutines`: `1.7.3`
+  * `koin`: `3.4.3`
+
 ## 7.0.0
 
 * `Version`:
