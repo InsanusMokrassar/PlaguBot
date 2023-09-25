@@ -8,7 +8,7 @@ microutils = "0.19.9"
 tgbotapi = "9.2.0"
 kslog = "1.1.2"
 
-jb-exposed = "0.42.1"
+jb-exposed = "0.41.1"
 jb-dokka = "1.8.20"
 
 sqlite = "3.43.0.0"
