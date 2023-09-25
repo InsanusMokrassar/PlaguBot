@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.2.0
+
+* `Version`:
+  * `tgbotapi`: `9.2.0`
+  * `kslog`: `1.1.2`
+  * `sqlite`: `3.43.0.0`
+
 ## 7.1.0
 
 * `Version`:
