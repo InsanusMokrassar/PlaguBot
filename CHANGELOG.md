@@ -5,7 +5,6 @@
 * `Version`:
   * `tgbotapi`: `9.2.0`
   * `kslog`: `1.1.2`
-  * `exposed`: `0.42.1`
   * `sqlite`: `3.43.0.0`
 
 ## 7.1.0
