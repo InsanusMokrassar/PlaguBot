@@ -2,6 +2,10 @@
 
 ## 7.2.1
 
+* `Versions`:
+  * `tgbotapi`: `9.2.1`
+  * `ktor`: `2.3.4`
+
 ## 7.2.0
 
 * `Version`:
