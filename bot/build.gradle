@@ -2,6 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
     id "org.jetbrains.kotlin.plugin.serialization"
     id 'application'
+    id "com.google.devtools.ksp"
 }
 
 project.group="$group"
@@ -34,5 +35,8 @@ application {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+ksp { // this generator do not require any arguments and we should left `ksp` empty
 }
 

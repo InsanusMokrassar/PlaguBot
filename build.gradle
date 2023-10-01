@@ -8,6 +8,7 @@ buildscript {
         classpath libs.buildscript.kt.gradle
         classpath libs.buildscript.kt.serialization
         classpath libs.buildscript.gh.release
+        classpath libs.buildscript.ksp
     }
 }
 
