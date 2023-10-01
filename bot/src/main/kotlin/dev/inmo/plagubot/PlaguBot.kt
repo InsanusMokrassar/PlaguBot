@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
+import dev.inmo.micro_utils.koin.getAllDistinct
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
@@ -94,6 +95,8 @@ data class PlaguBot(
         GlobalContext.startKoin(koinApp)
         logger.i("Koin started")
         lateinit var behaviourContext: BehaviourContext
+        val onStartContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnStartContextsConflictResolver>() }
+        val onUpdateContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnUpdateContextsConflictResolver>() }
         bot.buildBehaviourWithFSM(
             scope = scope,
             defaultExceptionsHandler = {
@@ -101,7 +104,8 @@ data class PlaguBot(
             },
             statesManager = koinApp.koin.getOrNull<StatesManager<State>>() ?: DefaultStatesManager(
                 koinApp.koin.getOrNull<DefaultStatesManagerRepo<State>>() ?: InMemoryDefaultStatesManagerRepo<State>(),
-                onStartContextsConflictResolver = { _, _ -> false }
+                onStartContextsConflictResolver = { old, new -> onStartContextsConflictResolver.firstNotNullOfOrNull { it(old, new) } ?: false },
+                onUpdateContextsConflictResolver = { old, new, currentNew -> onUpdateContextsConflictResolver.firstNotNullOfOrNull { it(old, new, currentNew) } ?: false }
             ),
             onStateHandlingErrorHandler = koinApp.koin.getOrNull<StateHandlingErrorHandler<State>>() ?: { state, e ->
                 logger.eS(e) { "Unable to handle state $state" }

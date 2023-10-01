@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.2
+
+* `Bot`:
+  * Now you may customize both `onStart` and `onUpdate` conflicts resolvers
+
 ## 7.2.1
 
 * `Versions`:

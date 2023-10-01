@@ -8,6 +8,8 @@ microutils = "0.19.9"
 tgbotapi = "9.2.1"
 kslog = "1.1.2"
 
+ksp = "1.8.22-1.0.11"
+
 jb-exposed = "0.41.1"
 jb-dokka = "1.8.20"
 
@@ -32,6 +34,8 @@ kt-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json"
 tgbotapi = { module = "dev.inmo:tgbotapi", version.ref = "tgbotapi" }
 tgbotapi-behaviourBuilder-fsm = { module = "dev.inmo:tgbotapi.behaviour_builder.fsm", version.ref = "tgbotapi" }
 microutils-repos-exposed = { module = "dev.inmo:micro_utils.repos.exposed", version.ref = "microutils" }
+microutils-koin = { module = "dev.inmo:micro_utils.koin", version.ref = "microutils" }
+microutils-koin-generator = { module = "dev.inmo:micro_utils.koin.generator", version.ref = "microutils" }
 kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -48,3 +52,4 @@ buildscript-kt-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", 
 buildscript-kt-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kt" }
 buildscript-jb-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "jb-dokka" }
 buildscript-gh-release = { module = "com.github.breadmoirai:github-release", version.ref = "gh-release" }
+buildscript-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
