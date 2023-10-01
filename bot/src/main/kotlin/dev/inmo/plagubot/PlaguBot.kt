@@ -95,8 +95,8 @@ data class PlaguBot(
         GlobalContext.startKoin(koinApp)
         logger.i("Koin started")
         lateinit var behaviourContext: BehaviourContext
-        val onStartContextsConflictResolver = koinApp.koin.getAllDistinct<OnStartContextsConflictResolver>()
-        val onUpdateContextsConflictResolver = koinApp.koin.getAllDistinct<OnUpdateContextsConflictResolver>()
+        val onStartContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnStartContextsConflictResolver>() }
+        val onUpdateContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnUpdateContextsConflictResolver>() }
         bot.buildBehaviourWithFSM(
             scope = scope,
             defaultExceptionsHandler = {
