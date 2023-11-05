@@ -4,7 +4,7 @@ kt = "1.9.20"
 kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
-microutils = "0.10.12"
+microutils = "0.20.12"
 tgbotapi = "9.3.0"
 kslog = "1.2.3"
 
