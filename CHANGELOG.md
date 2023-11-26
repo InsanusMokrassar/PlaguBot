@@ -7,7 +7,7 @@
   * `Serialization`: `1.6.1`
   * `tgbotapi`: `9.4.1`
   * `ktor`: `2.3.6`
-  * `KSLog`: `1.3.1`
+  * `KSLog`: Removed explicit dependency, now it is declared in tgbotapi
   * `MicroUtils`: `0.20.15`
 
 ## 7.2.3
