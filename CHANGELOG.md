@@ -2,6 +2,14 @@
 
 ## 7.3.0
 
+* `Versions`:
+  * `Kotlin`: `1.9.21`
+  * `Serialization`: `1.6.1`
+  * `tgbotapi`: `9.4.1`
+  * `ktor`: `2.3.6`
+  * `KSLog`: `1.3.1`
+  * `MicroUtils`: `0.20.15`
+
 ## 7.2.3
 
 * `Versions`:
