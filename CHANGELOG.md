@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.4.1
+
+* `Versions`:
+  * `Serialization`: `1.6.2`
+  * `tgbotapi`: `9.4.2`
+  * `Exposed`: `0.45.0`
+  * `SQLite`: `3.44.1.0`
+  * `MicroUtils`: `0.20.19`
+  * `uuid`: `0.8.2`
+  * `ktor`: `2.3.7`
+
 ## 7.3.0
 
 * `Versions`:
