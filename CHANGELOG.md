@@ -2,6 +2,12 @@
 
 ## 7.4.2
 
+* `Versions`:
+  * `Kotlin`: `1.9.22`
+  * `tgbotapi`: `9.4.3`
+  * `MicroUtils`: `0.20.23`
+  * `Koin`: `3.5.7`
+
 ## 7.4.1
 
 * `Versions`:
