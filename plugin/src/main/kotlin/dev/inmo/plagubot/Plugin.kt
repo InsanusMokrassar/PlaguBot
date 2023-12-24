@@ -1,6 +1,7 @@
 package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.fsm.common.State
+import dev.inmo.tgbotapi.bot.ktor.KtorRequestsExecutorBuilder
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContextWithFSM
 import kotlinx.serialization.Serializable
@@ -18,6 +19,8 @@ import org.koin.core.module.Module
  */
 @Serializable(PluginSerializer::class)
 interface Plugin {
+    fun KtorRequestsExecutorBuilder.setupBotClient() {}
+
     /**
      * This method will be called when this plugin should configure di module based on the incoming params
      */

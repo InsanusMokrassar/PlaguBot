@@ -2,6 +2,7 @@ package dev.inmo.plagubot.config
 
 import dev.inmo.micro_utils.common.Warning
 import dev.inmo.plagubot.Plugin
+import dev.inmo.tgbotapi.utils.telegramBotAPIDefaultUrl
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,4 +13,5 @@ data class Config(
     val plugins: List<Plugin>,
     @SerialName("database")
     val databaseConfig: DatabaseConfig = DatabaseConfig(),
+    val botApiServer: String = telegramBotAPIDefaultUrl
 )
