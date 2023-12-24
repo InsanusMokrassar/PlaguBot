@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
 import dev.inmo.micro_utils.koin.getAllDistinct
 import dev.inmo.plagubot.config.*
+import dev.inmo.tgbotapi.bot.ktor.KtorRequestsExecutorBuilder
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
@@ -37,7 +38,20 @@ data class PlaguBot(
     private val config: Config
 ) : Plugin {
     @Transient
-    private val bot = telegramBot(config.botToken)
+    private val bot = telegramBot(
+        token = config.botToken,
+        apiUrl = config.botApiServer
+    ) {
+        setupBotClient()
+    }
+
+    override fun KtorRequestsExecutorBuilder.setupBotClient() {
+        config.plugins.forEach {
+            with(it) {
+                setupBotClient()
+            }
+        }
+    }
 
     override fun Module.setupDI(database: Database, params: JsonObject) {
         single { config }
