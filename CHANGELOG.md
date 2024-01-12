@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.0.0
+
+* `Versions`:
+  * `tgbotapi`: `1.0.0`
+  * `MicroUtils`: `0.20.26`
+  * `Exposed`: `0.46.0`
+
 ## 7.4.2
 
 * `Versions`:
