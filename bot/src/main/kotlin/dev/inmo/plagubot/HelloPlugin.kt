@@ -32,8 +32,6 @@ object HelloPlugin : Plugin {
     override fun Module.setupDI(database: Database, params: JsonObject) {
         single {
             get<Json>().decodeFromJsonElement(HelloPluginConfig.serializer(), params["helloPlugin"] ?: return@single null)
-
-
         }
     }
 
@@ -41,6 +39,11 @@ object HelloPlugin : Plugin {
         override val context: IdChatIdentifier
         data class DidntSaidHello(override val context: IdChatIdentifier) : InternalFSMState
         data class SaidHelloOnce(override val context: IdChatIdentifier) : InternalFSMState
+    }
+
+    override suspend fun startPlugin(koin: Koin) {
+        super.startPlugin(koin)
+        logger.i { "This logic called BEFORE the bot will be started and setup" }
     }
 
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {

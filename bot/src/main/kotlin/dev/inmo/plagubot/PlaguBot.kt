@@ -46,24 +46,28 @@ data class PlaguBot(
     }
 
     override fun KtorRequestsExecutorBuilder.setupBotClient() {
-        config.plugins.forEach {
+        config.botPlugins.forEach {
             with(it) {
                 setupBotClient()
             }
         }
     }
 
-    override fun Module.setupDI(database: Database, params: JsonObject) {
-        single { config }
-        single { config.plugins }
-        single { config.databaseConfig }
-        single { config.databaseConfig.database }
+    override fun Module.setupDI(config: JsonObject) {
+        single { this@PlaguBot.config }
+        single { this@PlaguBot.config.plugins }
+        single { this@PlaguBot.config.databaseConfig }
+        single { this@PlaguBot.config.databaseConfig.database }
         single { defaultJsonFormat }
         single { this@PlaguBot }
         single { bot }
+    }
+
+    override fun Module.setupDI(database: Database, params: JsonObject) {
+        setupDI(params)
 
         includes(
-            config.plugins.mapNotNull {
+            config.botPlugins.mapNotNull {
                 runCatching {
                     module {
                         with(it) {
@@ -71,14 +75,31 @@ data class PlaguBot(
                         }
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to load DI part of $it", e)
+                    logger.w(e) { "Unable to load DI part of $it" }
                 }.getOrNull()
             }
         )
     }
 
-    override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
+    override suspend fun startPlugin(koin: Koin) {
+        super.startPlugin(koin)
+
         config.plugins.forEach { plugin ->
+            runCatchingSafely {
+                logger.i { "Starting of $plugin common logic" }
+                with(plugin) {
+                    startPlugin(koin)
+                }
+            }.onFailure { e ->
+                logger.w(e) { "Unable to load common logic of $plugin" }
+            }.onSuccess {
+                logger.i { "Complete loading of $plugin common logic" }
+            }
+        }
+    }
+
+    override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
+        config.botPlugins.forEach { plugin ->
             runCatchingSafely {
                 logger.i("Start loading of $plugin")
                 with(plugin) {
@@ -105,9 +126,11 @@ data class PlaguBot(
                 setupDI(config.databaseConfig.database, json)
             }
         )
-        logger.i("Modules loaded")
+        logger.i("Modules loaded. Starting koin")
         GlobalContext.startKoin(koinApp)
-        logger.i("Koin started")
+        logger.i("Koin started. Starting plugins common logic")
+        startPlugin(koinApp.koin)
+        logger.i("Plugins common logic started. Starting setup of bot logic part")
         lateinit var behaviourContext: BehaviourContext
         val onStartContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnStartContextsConflictResolver>() }
         val onUpdateContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnUpdateContextsConflictResolver>() }

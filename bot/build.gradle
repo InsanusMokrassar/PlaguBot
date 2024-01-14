@@ -20,6 +20,7 @@ dependencies {
     api libs.tgbotapi.behaviourBuilder.fsm
     api libs.microutils.repos.exposed
     api libs.microutils.koin
+    api libs.microutils.startup.launcher
 
     api libs.sqlite
 

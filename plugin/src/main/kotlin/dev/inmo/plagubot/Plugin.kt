@@ -1,6 +1,7 @@
 package dev.inmo.plagubot
 
 import dev.inmo.micro_utils.fsm.common.State
+import dev.inmo.micro_utils.startup.plugin.StartPlugin
 import dev.inmo.tgbotapi.bot.ktor.KtorRequestsExecutorBuilder
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContextWithFSM
@@ -18,7 +19,7 @@ import org.koin.core.module.Module
  * too.
  */
 @Serializable(PluginSerializer::class)
-interface Plugin {
+interface Plugin : StartPlugin {
     fun KtorRequestsExecutorBuilder.setupBotClient() {}
 
     /**
@@ -27,7 +28,9 @@ interface Plugin {
     fun Module.setupDI(
         database: Database,
         params: JsonObject
-    ) {}
+    ) {
+        setupDI(params)
+    }
 
     /**
      * Override this method in cases when you want to declare common bot behaviour. In case you wish to use FSM, you
