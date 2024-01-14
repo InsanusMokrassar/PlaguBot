@@ -30,6 +30,8 @@ tgbotapi-behaviourBuilder-fsm = { module = "dev.inmo:tgbotapi.behaviour_builder.
 microutils-repos-exposed = { module = "dev.inmo:micro_utils.repos.exposed", version.ref = "microutils" }
 microutils-koin = { module = "dev.inmo:micro_utils.koin", version.ref = "microutils" }
 microutils-koin-generator = { module = "dev.inmo:micro_utils.koin.generator", version.ref = "microutils" }
+microutils-startup-launcher = { module = "dev.inmo:micro_utils.startup.launcher", version.ref = "microutils" }
+microutils-startup-plugin = { module = "dev.inmo:micro_utils.startup.plugin", version.ref = "microutils" }
 
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 

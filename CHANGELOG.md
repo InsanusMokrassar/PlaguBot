@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.1.0
+
+* Integrate `dev.inmo:micro_utils.startup` into project
+
 ## 8.0.0
 
 * `Versions`:
