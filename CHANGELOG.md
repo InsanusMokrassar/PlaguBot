@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.1.1
+
+* `Versions`:
+  * `tgbotapi`: `10.0.1`
+  * `MicroUtils`: `0.20.32`
+  * `Exposed`: `0.47.0`
+
 ## 8.1.0
 
 * Integrate `dev.inmo:micro_utils.startup` into project
@@ -7,7 +14,7 @@
 ## 8.0.0
 
 * `Versions`:
-  * `tgbotapi`: `1.0.0`
+  * `tgbotapi`: `10.0.0`
   * `MicroUtils`: `0.20.26`
   * `Exposed`: `0.46.0`
 
