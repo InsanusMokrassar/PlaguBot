@@ -4,12 +4,12 @@ kt = "1.9.22"
 kt-serialization = "1.6.2"
 kt-coroutines = "1.7.3"
 
-microutils = "0.20.26"
-tgbotapi = "10.0.0"
+microutils = "0.20.32"
+tgbotapi = "10.0.1"
 
-ksp = "1.9.22-1.0.16"
+ksp = "1.9.22-1.0.17"
 
-jb-exposed = "0.46.0"
+jb-exposed = "0.47.0"
 jb-dokka = "1.9.10"
 
 sqlite = "3.44.1.0"
