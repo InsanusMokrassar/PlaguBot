@@ -1,5 +1,7 @@
 # Changelog
 
+## 8.2.0
+
 ## 8.1.1
 
 * `Versions`:
