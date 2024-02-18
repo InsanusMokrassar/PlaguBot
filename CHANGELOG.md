@@ -2,6 +2,11 @@
 
 ## 8.2.0
 
+* `Versions`:
+  * `Coroutines`: `1.8.0`
+  * `tgbotapi`: `10.1.0`
+  * `MicroUtils`: `0.20.35`
+
 ## 8.1.1
 
 * `Versions`:
