@@ -20,13 +20,13 @@ if (new File(projectDir, "secret.gradle").exists()) {
 
         releaseAssets.from('bot/build/distributions')
 
-        owner "InsanusMokrassar"
-        repo "PlaguBot"
+        owner = "InsanusMokrassar"
+        repo = "PlaguBot"
 
-        tagName "v${project.version}"
-        releaseName "${project.version}"
-        targetCommitish "${project.version}"
+        tagName = "v${project.version}"
+        releaseName = "${project.version}"
+        targetCommitish = "${project.version}"
 
-        body getCurrentVersionChangelog()
+        body = getCurrentVersionChangelog()
     }
 }
