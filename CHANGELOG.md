@@ -2,6 +2,14 @@
 
 ## 8.3.0
 
+* `Versions`:
+  * `Serialization`: `1.6.3`
+  * `MicroUtils`: `0.20.45`
+  * `tgbotapi`: `12.0.1`
+  * `Exposed`: `0.49.0`
+  * `SQLite`: `3.45.3.0`
+  * `Koin`: `3.5.6`
+
 ## 8.2.0
 
 * `Versions`:
