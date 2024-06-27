@@ -2,6 +2,12 @@
 
 ## 8.4.0
 
+* `Versions`:
+  * `Coroutines`: `1.8.1`
+  * `MicroUtils`: `0.21.1`
+  * `tgbotapi`: `15.0.0`
+  * `Exposed`: `0.51.1`
+
 ## 8.3.0
 
 * `Versions`:
