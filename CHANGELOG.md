@@ -2,6 +2,10 @@
 
 ## 8.5.0
 
+* `Versions`:
+  * `MicroUtils`: `0.21.2`
+  * `tgbotapi`: `15.1.0`
+
 ## 8.4.0
 
 * `Versions`:
