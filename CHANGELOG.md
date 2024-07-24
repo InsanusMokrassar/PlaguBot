@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.5.1
+
+* `Versions`:
+  * `MicroUtils`: `0.21.4`
+  * `tgbotapi`: `15.2.0`
+
 ## 8.5.0
 
 * `Versions`:
