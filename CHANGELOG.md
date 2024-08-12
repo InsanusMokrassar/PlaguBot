@@ -1,5 +1,14 @@
 # Changelog
 
+## 9.0.0
+
+* `Versions`:
+  * `Kotlin`: `2.0.10`
+  * `Serialization`: `1.7.1`
+  * `MicroUtils`: `0.22.0`
+  * `tgbotapi`: `16.0.0`
+  * `Exposed`: `0.53.0`
+
 ## 8.5.1
 
 * `Versions`:
