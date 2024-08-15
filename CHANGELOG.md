@@ -2,6 +2,9 @@
 
 ## 9.1.0
 
+* `Versions`:
+  * `tgbotapi`: `17.0.0`
+
 ## 9.0.0
 
 * `Versions`:
