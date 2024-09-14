@@ -2,7 +2,11 @@
 
 ## 9.3.0
 
-* Add opportunity to use config in setup bot client
+* `Bot`:
+  * Now bot is not built-in into `PlaguBot` and setted up as all other `Koin` dependencies
+  * Now it is possible to use `testServer` parameter for bots out of the box
+* `Plugin`:
+  * New method `setupBotClient` with arguments to let plugin setup bot more freely
 
 ## 9.2.0
 

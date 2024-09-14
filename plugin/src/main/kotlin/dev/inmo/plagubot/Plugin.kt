@@ -10,6 +10,7 @@ import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
 import org.koin.core.Koin
 import org.koin.core.module.Module
+import org.koin.core.scope.Scope
 
 /**
  * **ANY REALIZATION OF [Plugin] MUST HAVE CONSTRUCTOR WITH ABSENCE OF INCOMING PARAMETERS**
@@ -20,8 +21,16 @@ import org.koin.core.module.Module
  */
 @Serializable(PluginSerializer::class)
 interface Plugin : StartPlugin {
+    @Deprecated("Deprecated in favor to setupBotClient with arguments")
     fun KtorRequestsExecutorBuilder.setupBotClient() {}
-    fun KtorRequestsExecutorBuilder.setupBotClient(params: JsonObject) = setupBotClient()
+
+    /**
+     * Will be called on stage of bot setup
+     *
+     * @param scope The scope of [org.koin.core.module.Module.single] of bot definition
+     * @param params Params (in fact, the whole bot config)
+     */
+    fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) = setupBotClient()
 
     /**
      * This method will be called when this plugin should configure di module based on the incoming params

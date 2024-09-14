@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
 import dev.inmo.micro_utils.koin.getAllDistinct
 import dev.inmo.plagubot.config.*
+import dev.inmo.tgbotapi.bot.TelegramBot
 import dev.inmo.tgbotapi.bot.ktor.KtorRequestsExecutorBuilder
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
@@ -15,7 +16,6 @@ import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonObject
 import org.jetbrains.exposed.sql.Database
 import org.koin.core.Koin
@@ -37,18 +37,10 @@ data class PlaguBot(
     private val json: JsonObject,
     private val config: Config
 ) : Plugin {
-    @Transient
-    private val bot = telegramBot(
-        token = config.botToken,
-        apiUrl = config.botApiServer
-    ) {
-        setupBotClient(json)
-    }
-
-    override fun KtorRequestsExecutorBuilder.setupBotClient(params: JsonObject) {
+    override fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) {
         config.botPlugins.forEach {
             with(it) {
-                setupBotClient(params)
+                setupBotClient(scope, params)
             }
         }
     }
@@ -67,7 +59,16 @@ data class PlaguBot(
         single { this@PlaguBot.config.databaseConfig.database }
         single { defaultJsonFormat }
         single { this@PlaguBot }
-        single { bot }
+        single {
+            val config = get<Config>()
+            telegramBot(
+                token = config.botToken,
+                testServer = config.testServer,
+                apiUrl = config.botApiServer
+            ) {
+                setupBotClient(this@single, json)
+            }
+        }
     }
 
     override fun Module.setupDI(database: Database, params: JsonObject) {
@@ -124,7 +125,7 @@ data class PlaguBot(
      * This method will create an [Job] which will be the main [Job] of ran instance
      */
     suspend fun start(
-        scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+        scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ): Job {
         logger.i("Start initialization")
         val koinApp = KoinApplication.init()
@@ -141,6 +142,7 @@ data class PlaguBot(
         lateinit var behaviourContext: BehaviourContext
         val onStartContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnStartContextsConflictResolver>() }
         val onUpdateContextsConflictResolver by lazy { koinApp.koin.getAllDistinct<OnUpdateContextsConflictResolver>() }
+        val bot = koinApp.koin.get<TelegramBot>()
         bot.buildBehaviourWithFSM(
             scope = scope,
             defaultExceptionsHandler = {
