@@ -14,7 +14,8 @@ data class Config(
     val plugins: List<StartPlugin>,
     @SerialName("database")
     val databaseConfig: DatabaseConfig = DatabaseConfig(),
-    val botApiServer: String = telegramBotAPIDefaultUrl
+    val botApiServer: String = telegramBotAPIDefaultUrl,
+    val testServer: Boolean = false
 ) {
     val botPlugins = plugins.filterIsInstance<Plugin>()
 }

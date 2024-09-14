@@ -1,5 +1,13 @@
 # Changelog
 
+## 9.3.0
+
+* `Bot`:
+  * Now bot is not built-in into `PlaguBot` and setted up as all other `Koin` dependencies
+  * Now it is possible to use `testServer` parameter for bots out of the box
+* `Plugin`:
+  * New method `setupBotClient` with arguments to let plugin setup bot more freely
+
 ## 9.2.0
 
 * `Versions`:
