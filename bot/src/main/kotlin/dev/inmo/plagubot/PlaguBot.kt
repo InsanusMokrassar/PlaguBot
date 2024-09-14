@@ -42,9 +42,16 @@ data class PlaguBot(
         token = config.botToken,
         apiUrl = config.botApiServer
     ) {
-        setupBotClient()
+        setupBotClient(json)
     }
 
+    override fun KtorRequestsExecutorBuilder.setupBotClient(params: JsonObject) {
+        config.botPlugins.forEach {
+            with(it) {
+                setupBotClient(params)
+            }
+        }
+    }
     override fun KtorRequestsExecutorBuilder.setupBotClient() {
         config.botPlugins.forEach {
             with(it) {

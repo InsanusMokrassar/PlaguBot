@@ -21,6 +21,7 @@ import org.koin.core.module.Module
 @Serializable(PluginSerializer::class)
 interface Plugin : StartPlugin {
     fun KtorRequestsExecutorBuilder.setupBotClient() {}
+    fun KtorRequestsExecutorBuilder.setupBotClient(params: JsonObject) = setupBotClient()
 
     /**
      * This method will be called when this plugin should configure di module based on the incoming params

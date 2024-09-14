@@ -2,6 +2,8 @@
 
 ## 9.3.0
 
+* Add opportunity to use config in setup bot client
+
 ## 9.2.0
 
 * `Versions`:
