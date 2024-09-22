@@ -11,12 +11,6 @@ import org.koin.core.module.Module
 import org.koin.core.scope.Scope
 import kotlin.reflect.KClass
 
-val Scope.database: Database
-    get() = get()
-
-val Koin.database: Database
-    get() = get()
-
 /**
  * Using [single] to register `T` with serializer [configSerializer]
  *
