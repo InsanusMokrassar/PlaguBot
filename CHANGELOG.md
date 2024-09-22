@@ -2,6 +2,9 @@
 
 ## 9.3.1
 
+* `Plugin`:
+  * `Plugin#setupBotPlugin` now will call start plugin by default
+
 ## 9.3.0
 
 * `Bot`:

@@ -48,7 +48,9 @@ interface Plugin : StartPlugin {
      */
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
-    ) {}
+    ) {
+        startPlugin(koin)
+    }
     /**
      * Override this method in cases when you want to declare full behaviour of the plugin. It is recommended to declare
      * common logic of plugin in the [setupBotPlugin] with [BehaviourContext] receiver and use override this one
