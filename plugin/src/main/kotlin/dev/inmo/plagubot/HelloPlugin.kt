@@ -26,9 +26,7 @@ object HelloPlugin : Plugin {
     )
 
     override fun Module.setupDI(config: JsonObject) {
-        single {
-            get<Json>().decodeFromJsonElement(HelloPluginConfig.serializer(), config["helloPlugin"] ?: return@single null)
-        }
+        registerConfig<HelloPluginConfig>("helloPlugin")
     }
 
     private sealed interface InternalFSMState : State {
@@ -43,7 +41,7 @@ object HelloPlugin : Plugin {
     }
 
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
-        val toPrint = koin.getOrNull<HelloPluginConfig>() ?.print ?: "Hello :)"
+        val toPrint = koin.configOrNull<HelloPluginConfig>() ?.print ?: "Hello :)"
         logger.d { toPrint }
         logger.dS { getMe().toString() }
         onCommand("hello_world") {
