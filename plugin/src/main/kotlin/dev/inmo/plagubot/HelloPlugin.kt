@@ -26,7 +26,7 @@ object HelloPlugin : Plugin {
     )
 
     override fun Module.setupDI(config: JsonObject) {
-        registerConfig<HelloPluginConfig>("helloPlugin")
+        registerConfig<HelloPluginConfig>("helloPlugin") { null }
     }
 
     private sealed interface InternalFSMState : State {
