@@ -1,6 +1,6 @@
 # Changelog
 
-## 9.3.1
+## 10.0.0
 
 * `Plugin`:
   * `Plugin#setupBotPlugin` now will call start plugin by default
