@@ -45,6 +45,8 @@ interface Plugin : StartPlugin {
     /**
      * Override this method in cases when you want to declare common bot behaviour. In case you wish to use FSM, you
      * should override the method with receiver [BehaviourContextWithFSM]
+     *
+     * Besides, this method by default will call [startPlugin]
      */
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
