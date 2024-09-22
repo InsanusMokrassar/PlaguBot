@@ -2,8 +2,26 @@
 
 ## 10.0.0
 
+**OVERALL LOGIC OF PLAGUBOT INITIALIZATION AND WORK HAS BEEN CHANGED**
+
+First of all, since this update `PlaguBot` will use default `StartPlugin` logic and will be built on top of it.
+All special methods of `Plugin` will be called from one of `PlaguBot` initialization phases:
+
+* `setupBotClient` will be called from `single` initialization of `telegramBot` (in `setupDI` phase)
+* `setupBotPlugin` will be called from `startPlugin` method in time of `buildBehaviourWithFSM` initialization
+
 * `Plugin`:
-  * `Plugin#setupBotPlugin` now will call start plugin by default
+  * Extension `Module.setupDI(Database,JsonObject)` has been dropped. Use `database` extension in `Module.setupDI(JsonObject)`
+* `Bot`:
+  * `dev.inmo.plagubot.config.Config` lost its `plugins` section. Now you may retrieve plugins from `Koin` only
+  * `defaultJsonFormat` became `Warning` feature due to the fact of its fully default nature
+  * `PlaguBot` lost old `start` method and took two new: with `args` as `Array<String>` and `initialConfig` as `JsonObject`
+
+**Migration:**
+
+* If you are running bot and doing it using `StartPlugin` launcher, add `dev.inmo.plagubot.PlaguBot` explicitly
+* In plugins: replace your `setupDI` overrides with `Database` as argument by the same one, but `database` will be
+available as extension in `single` or `factory` calls (as extension to `Scope` and `Koin`)
 
 ## 9.3.0
 

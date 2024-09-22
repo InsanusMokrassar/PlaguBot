@@ -11,11 +11,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Config(
     val botToken: String,
-    val plugins: List<StartPlugin>,
     @SerialName("database")
     val databaseConfig: DatabaseConfig = DatabaseConfig(),
     val botApiServer: String = telegramBotAPIDefaultUrl,
     val testServer: Boolean = false
-) {
-    val botPlugins = plugins.filterIsInstance<Plugin>()
-}
+)

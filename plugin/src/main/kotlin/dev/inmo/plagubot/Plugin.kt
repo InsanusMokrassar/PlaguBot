@@ -7,9 +7,7 @@ import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContext
 import dev.inmo.tgbotapi.extensions.behaviour_builder.BehaviourContextWithFSM
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
-import org.jetbrains.exposed.sql.Database
 import org.koin.core.Koin
-import org.koin.core.module.Module
 import org.koin.core.scope.Scope
 
 /**
@@ -33,26 +31,12 @@ interface Plugin : StartPlugin {
     fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) = setupBotClient()
 
     /**
-     * This method will be called when this plugin should configure di module based on the incoming params
-     */
-    fun Module.setupDI(
-        database: Database,
-        params: JsonObject
-    ) {
-        setupDI(params)
-    }
-
-    /**
      * Override this method in cases when you want to declare common bot behaviour. In case you wish to use FSM, you
      * should override the method with receiver [BehaviourContextWithFSM]
-     *
-     * Besides, this method by default will call [startPlugin]
      */
     suspend fun BehaviourContext.setupBotPlugin(
         koin: Koin
-    ) {
-        startPlugin(koin)
-    }
+    ) {}
     /**
      * Override this method in cases when you want to declare full behaviour of the plugin. It is recommended to declare
      * common logic of plugin in the [setupBotPlugin] with [BehaviourContext] receiver and use override this one
