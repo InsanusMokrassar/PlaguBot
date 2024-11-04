@@ -2,6 +2,16 @@
 
 ## 10.1.0
 
+* `Versions`:
+  * `kotlin`: `2.0.21`
+  * `serialization`: `1.7.3`
+  * `coroutines`: `1.9.0`
+  * `microutils`: `0.23.0`
+  * `tgbotapi`: `20.0.0`
+  * `exposed`: `0.55.0`
+  * `sqlite`: `3.47.0.0`
+  * `koin`: `4.0.0`
+
 ## 10.0.0
 
 **OVERALL LOGIC OF PLAGUBOT INITIALIZATION AND WORK HAS BEEN CHANGED**
