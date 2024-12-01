@@ -1,5 +1,14 @@
 # Changelog
 
+## 10.2.0
+
+* `Versions`:
+  * `kotlin`: `2.1.0`
+  * `microutils`: `0.23.1`
+  * `tgbotapi`: `21.0.0`
+  * `exposed`: `0.56.0`
+  * `sqlite`: `3.47.1.0`
+
 ## 10.1.1
 
 * `Versions`:
