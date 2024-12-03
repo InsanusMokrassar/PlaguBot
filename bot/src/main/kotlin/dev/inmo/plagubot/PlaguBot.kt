@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
 import dev.inmo.micro_utils.koin.getAllDistinct
+import dev.inmo.micro_utils.pagination.utils.getAll
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.TelegramBot
@@ -85,7 +86,8 @@ object PlaguBot : Plugin {
             onStateHandlingErrorHandler = koin.getOrNull<StateHandlingErrorHandler<State>>() ?: { state, e ->
                 logger.eS(e) { "Unable to handle state $state" }
                 null
-            }
+            },
+            subcontextInitialAction = CombinedSubcontextInitialAction(koin.getAllDistinct()).subcontextInitialAction
         ) {
             logger.i("Start setup of bot part")
             behaviourContext = this

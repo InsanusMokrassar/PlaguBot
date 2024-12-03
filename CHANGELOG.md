@@ -1,5 +1,12 @@
 # Changelog
 
+## 10.2.1
+
+* `Versions`:
+  * `tgbotapi`: `21.0.1`
+* `Bot`:
+  * Now all `CombinedSubcontextInitialAction.SubItem`s will be taken from `Koin` to setup root `subcontextInitialAction`
+
 ## 10.2.0
 
 * `Versions`:
