@@ -19,6 +19,8 @@ That is a set of libraries for plagubots. Look at the
 
 ### Technical help
 
+#### FSM
+
 In this bot has been used variant with FSM. That means that you may use all the [Behaviour Builder with FSM](https://bookstack.inmo.dev/books/telegrambotapi/page/behaviour-builder-with-fsm) functionality. In case you wish to setup states repo, you should use the next code in the `setupDI` of your plugin:
 
 ```kotlin
@@ -38,6 +40,19 @@ single<StateHandlingErrorHandler<State>> {
     { state, e ->
         logger.eS(e) { "Unable to handle state $state" } // logging by default
         null // you should return new state or null, default callback will return null
+    }
+}
+```
+
+#### Subcontext initial actions
+
+Bot will take all the `CombinedSubcontextInitialAction.SubItem`s from `Koin` to include it in root of
+`behaviourBuilder`. To create your own subitem:
+
+```kotlin
+singleWithRandomQualifier<CombinedSubcontextInitialAction.SubItem> {
+    CombinedSubcontextInitialAction.SubItem {
+        // do some action or throw error to rerun on next round
     }
 }
 ```
