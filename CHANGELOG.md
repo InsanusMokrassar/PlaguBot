@@ -2,6 +2,11 @@
 
 ## 10.3.0
 
+* `Versions`:
+  * `microutils`: `0.23.2`
+  * `tgbotapi`: `22.0.0`
+  * `exposed`: `0.57.0`
+
 ## 10.2.1
 
 * `Versions`:
