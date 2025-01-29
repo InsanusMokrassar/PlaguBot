@@ -2,6 +2,16 @@
 
 ## 10.3.1
 
+* `Versions`:
+  * `kotlin`: `2.1.10`
+  * `serialization`: `1.8.0`
+  * `coroutines`: `1.10.1`
+  * `microutils`: `0.24.5`
+  * `tgbotapi`: `23.1.2`
+  * `exposed`: `0.58.0`
+  * `sqlite`: `3.48.0.0`
+  * `koin`: `4.0.2`
+
 ## 10.3.0
 
 * `Versions`:
