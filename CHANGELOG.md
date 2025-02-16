@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.4.0
+
+* `Versions`:
+  * `microutils`: `0.24.6`
+  * `tgbotapi`: `23.2.0`
+  * `exposed`: `0.59.0`
+  * `sqlite`: `3.49.0.0`
+
 ## 10.3.1
 
 * `Versions`:
