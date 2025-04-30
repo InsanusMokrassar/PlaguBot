@@ -1,5 +1,17 @@
 # Changelog
 
+## 10.5.0
+
+* `Versions`:
+  * `kotlin`: `2.1.20`
+  * `serialization`: `1.8.1`
+  * `coroutines`: `1.10.2`
+  * `microutils`: `0.25.5`
+  * `tgbotapi`: `24.0.2`
+  * `exposed`: `0.61.0`
+  * `sqlite`: `3.49.1.0`
+  * `koin`: `4.0.4`
+
 ## 10.4.0
 
 * `Versions`:
