@@ -18,6 +18,8 @@ gh-release = "2.5.2"
 
 koin = "4.0.4"
 
+nmcp = "0.1.5"
+
 [libraries]
 
 kt-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kt" }
@@ -48,3 +50,7 @@ buildscript-kt-serialization = { module = "org.jetbrains.kotlin:kotlin-serializa
 buildscript-jb-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "jb-dokka" }
 buildscript-gh-release = { module = "com.github.breadmoirai:github-release", version.ref = "gh-release" }
 buildscript-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+
+[plugins]
+
+nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }
