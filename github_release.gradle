@@ -20,9 +20,10 @@ if (secretFile.exists() || project.hasProperty(githubTokenVariableName) || (gith
         apply from: './secret.gradle'
     }
     apply plugin: "com.github.breadmoirai.github-release"
+    def githubReleaseToken = project.hasProperty(githubTokenVariableName) ? project.property(githubTokenVariableName).toString() : githubTokenVariableFromEnv
 
     githubRelease {
-        token "${project.property('GITHUB_RELEASE_TOKEN')}"
+        token githubReleaseToken
 
         releaseAssets.from('bot/build/distributions')
 
