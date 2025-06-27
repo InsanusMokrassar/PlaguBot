@@ -2,6 +2,11 @@
 
 ## 10.6.0
 
+* `Versions`:
+  * `microutils`: `0.25.8`
+  * `tgbotapi`: `26.0.0`
+  * `sqlite`: `3.50.1.0`
+
 ## 10.5.0
 
 * `Versions`:
