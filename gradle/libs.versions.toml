@@ -4,19 +4,21 @@ kt = "2.1.20"
 kt-serialization = "1.8.1"
 kt-coroutines = "1.10.2"
 
-microutils = "0.25.5"
-tgbotapi = "24.0.2"
+microutils = "0.25.8"
+tgbotapi = "26.0.0"
 
 ksp = "2.1.20-1.0.31"
 
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
-sqlite = "3.49.1.0"
+sqlite = "3.50.1.0"
 
 gh-release = "2.5.2"
 
 koin = "4.0.4"
+
+nmcp = "0.2.1"
 
 [libraries]
 
@@ -48,3 +50,7 @@ buildscript-kt-serialization = { module = "org.jetbrains.kotlin:kotlin-serializa
 buildscript-jb-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "jb-dokka" }
 buildscript-gh-release = { module = "com.github.breadmoirai:github-release", version.ref = "gh-release" }
 buildscript-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+
+[plugins]
+
+nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }

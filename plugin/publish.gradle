@@ -1,4 +1,6 @@
+
 apply plugin: 'maven-publish'
+
 
 task javadocJar(type: Jar) {
     from javadoc
@@ -48,30 +50,28 @@ publishing {
                     
                 }
             }
-            repositories {
-                if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
-                    maven {
-                        name = "InmoNexus"
-                        url = uri("https://nexus.inmo.dev/repository/maven-releases/")
-                
-                        credentials {
-                            username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
-                            password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
-                        }
-                
-                    }
+        }
+    }
+    repositories {
+        if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
+            maven {
+                name = "InmoNexus"
+                url = uri("https://nexus.inmo.dev/repository/maven-releases/")
+        
+                credentials {
+                    username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
+                    password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
                 }
-                if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
-                    maven {
-                        name = "sonatype"
-                        url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-                
-                        credentials {
-                            username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
-                            password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
-                        }
-                
-                    }
+            }
+        }
+        if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
+            maven {
+                name = "sonatype"
+                url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+        
+                credentials {
+                    username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
+                    password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
                 }
             }
         }
@@ -80,13 +80,13 @@ publishing {
 
 if (project.hasProperty("signing.gnupg.keyName")) {
     apply plugin: 'signing'
-    
+
     signing {
         useGpgCmd()
-    
+
         sign publishing.publications
     }
-    
+
     task signAll {
         tasks.withType(Sign).forEach {
             dependsOn(it)
