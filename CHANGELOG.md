@@ -2,6 +2,13 @@
 
 ## 10.7.0
 
+* `Versions`:
+  * `kotlin`: `2.2.0`
+  * `serialization`: `1.9.0`
+  * `microutils`: `0.26.2`
+  * `tgbotapi`: `27.1.1`
+  * `koin`: `4.1.0`
+
 ## 10.6.0
 
 * `Versions`:
