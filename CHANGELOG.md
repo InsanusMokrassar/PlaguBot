@@ -1,5 +1,7 @@
 # Changelog
 
+## 10.7.0
+
 ## 10.6.0
 
 * `Versions`:
