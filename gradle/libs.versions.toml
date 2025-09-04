@@ -1,13 +1,13 @@
 [versions]
 
-kt = "2.2.0"
+kt = "2.2.10"
 kt-serialization = "1.9.0"
 kt-coroutines = "1.10.2"
 
-microutils = "0.26.2"
-tgbotapi = "27.1.1"
+microutils = "0.26.3"
+tgbotapi = "28.0.1"
 
-ksp = "2.2.0-2.0.2"
+ksp = "2.2.10-2.0.2"
 
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
@@ -18,7 +18,7 @@ gh-release = "2.5.2"
 
 koin = "4.1.0"
 
-nmcp = "1.0.2"
+nmcp = "1.1.0"
 
 [libraries]
 
