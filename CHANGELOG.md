@@ -2,6 +2,11 @@
 
 ## 10.8.0
 
+* `Versions`:
+    * `kotlin`: `2.2.10`
+    * `microutils`: `0.26.3`
+    * `tgbotapi`: `28.0.1`
+
 ## 10.7.0
 
 * `Versions`:
