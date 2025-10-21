@@ -1,24 +1,24 @@
 [versions]
 
-kt = "2.2.10"
+kt = "2.2.20"
 kt-serialization = "1.9.0"
 kt-coroutines = "1.10.2"
 
-microutils = "0.26.3"
-tgbotapi = "28.0.1"
+microutils = "0.26.6"
+tgbotapi = "30.0.0"
 
-ksp = "2.2.10-2.0.2"
+ksp = "2.2.20-2.0.4"
 
 jb-exposed = "0.61.0"
-jb-dokka = "2.0.0"
+jb-dokka = "2.1.0"
 
-sqlite = "3.50.1.0"
+sqlite = "3.50.3.0"
 
 gh-release = "2.5.2"
 
-koin = "4.1.0"
+koin = "4.1.1"
 
-nmcp = "1.1.0"
+nmcp = "1.2.0"
 
 [libraries]
 
