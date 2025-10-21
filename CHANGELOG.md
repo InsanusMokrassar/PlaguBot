@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.9.0
+
+* `Versions`:
+    * `kotlin`: `2.2.20`
+    * `microutils`: `0.26.6`
+    * `tgbotapi`: `30.0.0`
+    * `koin`: `4.1.1`
+
 ## 10.8.0
 
 * `Versions`:
