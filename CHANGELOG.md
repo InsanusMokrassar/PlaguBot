@@ -2,6 +2,12 @@
 
 ## 10.10.0
 
+* `Versions`:
+    * `kotlin`: `2.2.21`
+    * `microutils`: `0.26.8`
+    * `tgbotapi`: `30.0.2`
+    * `nmcp`: `1.3.0`
+
 ## 10.9.0
 
 * `Versions`:
