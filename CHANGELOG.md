@@ -2,6 +2,14 @@
 
 ## 11.0.0
 
+* `Versions`:
+    * `kotlin`: `2.3.10`
+    * `serialization`: `1.10.0`
+    * `microutils`: `0.29.1`
+    * `tgbotapi`: `32.0.0`
+    * `exposed`: `1.1.1`
+    * `sqlite`: `3.51.2.0`
+
 ## 10.10.0
 
 * `Versions`:
