@@ -28,6 +28,7 @@ interface Plugin : StartPlugin {
      * @param scope The scope of [org.koin.core.module.Module.single] of bot definition
      * @param params Params (in fact, the whole bot config)
      */
+    @Suppress("DEPRECATION")
     fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) = setupBotClient()
 
     /**

@@ -2,12 +2,12 @@ package dev.inmo.plagubot
 
 import dev.inmo.kslog.common.*
 import dev.inmo.micro_utils.common.Warning
+import dev.inmo.micro_utils.coroutines.runCatchingLogging
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
 import dev.inmo.micro_utils.koin.getAllDistinct
-import dev.inmo.micro_utils.pagination.utils.getAll
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin
 import dev.inmo.plagubot.config.*
 import dev.inmo.tgbotapi.bot.TelegramBot
@@ -24,9 +24,39 @@ import org.koin.core.module.Module
 import org.koin.core.scope.Scope
 import java.io.File
 
+/**
+ * Central plugin-object that:
+ * - Provides DI bindings for the bot, configuration and optional database
+ * - Creates and configures Telegram bot client
+ * - Builds BehaviourBuilder with FSM support and launches long polling
+ * - Loads and initializes other plugins
+ * - Exposes several start(...) overloads to bootstrap the application from JSON or strongly-typed configs
+ *
+ * Typical usage:
+ * - Prepare JSON or typed configs
+ * - Call one of start(...) methods
+ * - The returned Job represents the bot lifecycle; awaiting it keeps the app running
+ */
 @OptIn(Warning::class)
 @Serializable
 object PlaguBot : Plugin {
+    /**
+     * JSON format used for encoding/decoding PlaguBot-related configuration.
+     *
+     * Note:
+     * - This property is not reactive. Set it only before starting the bot to affect configuration parsing/serialization.
+     */
+    var defaultJsonFormat = dev.inmo.plagubot.config.defaultJsonFormat
+        @Warning("This is not reactive set. Use this only BEFORE starting of bot") set
+
+    /**
+     * Allows other plugins to customize the [KtorRequestsExecutorBuilder] used by the bot client.
+     *
+     * For each plugin in DI (excluding this object), calls its own setupBotClient, passing the same [scope] and [params].
+     *
+     * @param scope Koin scope where the bot is being created
+     * @param params Raw JSON params of the bot part of the configuration
+     */
     override fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) {
         scope.plugins.filter { it !== this@PlaguBot }.forEach {
             with(it) {
@@ -35,6 +65,19 @@ object PlaguBot : Plugin {
         }
     }
 
+    /**
+     * Sets up application DI for the bot.
+     *
+     * Registers:
+     * - Decoded typed [Config] from provided [config] JSON
+     * - Raw [JsonObject] config itself for low-level access
+     * - Database-related config and database instance (if present in [Config])
+     * - This [PlaguBot] plugin instance
+     * - All plugins declared in launcher config as DI singletons
+     * - Configured [TelegramBot] built via [telegramBot] and customized by all plugins' setupBotClient
+     *
+     * @param config Raw PlaguBot JSON configuration
+     */
     override fun Module.setupDI(config: JsonObject) {
         single { get<Json>().decodeFromJsonElement(Config.serializer(), config) }
         single { config }
@@ -55,15 +98,14 @@ object PlaguBot : Plugin {
     }
 
     /**
-     * Getting all [OnStartContextsConflictResolver], [OnUpdateContextsConflictResolver], [StatesManager] and [DefaultStatesManagerRepo]
-     * and pass them into [buildBehaviourWithFSM] on top of [TelegramBot] took from [koin]. In time of
-     * [buildBehaviourWithFSM] configuration will call [setupBotPlugin] and [deleteWebhook].
+     * Builds and starts the bot behaviour and FSM.
      *
-     * After all preparation, the result of [buildBehaviourWithFSM] will be passed to [startGettingOfUpdatesByLongPolling]
-     * as [CoroutineScope] and [UpdatesFilter].
-     *
-     * The [Job] took from [startGettingOfUpdatesByLongPolling] will be used to prevent app stopping by calling [Job.join]
-     * on it
+     * Flow:
+     * - Collects [OnStartContextsConflictResolver], [OnUpdateContextsConflictResolver], [StatesManager] and [DefaultStatesManagerRepo] from DI (or creates defaults)
+     * - Builds BehaviourBuilder with FSM, logs errors, and calls [setupBotPlugin] for all plugins
+     * - Ensures webhook is removed before long polling with [deleteWebhook]
+     * - Starts long polling via [startGettingOfUpdatesByLongPolling] using the created behaviour context as scope and filter
+     * - Awaits the long-polling [Job] to keep the app alive
      */
     override suspend fun startPlugin(koin: Koin) {
         super.startPlugin(koin)
@@ -102,12 +144,18 @@ object PlaguBot : Plugin {
     }
 
     /**
-     * Initializing [Plugin]s from [koin] took by [plugins] extension. [PlaguBot] itself will be filtered out from
-     * list of plugins to be inited
+     * Initializes and loads all other [Plugin]s from DI for the bot runtime.
+     *
+     * Each plugin is:
+     * - Logged as loading started
+     * - Executed via plugin.setupBotPlugin(...) inside a safe block
+     * - Logged on failure (as warning) or success (as info)
+     *
+     * [PlaguBot] itself is excluded from this list.
      */
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
         koin.plugins.filter { it !== this@PlaguBot }.forEach { plugin ->
-            runCatchingSafely {
+            runCatchingLogging(logger = logger) {
                 logger.i("Start loading of $plugin")
                 with(plugin) {
                     setupBotPlugin(koin)
@@ -121,23 +169,45 @@ object PlaguBot : Plugin {
     }
 
     /**
-     * Starting plugins system using [StartLauncherPlugin.start]. In time of parsing [initialJson] [PlaguBot] may
-     * add itself in its `plugins` section in case of its absence there. So, by launching this [start] it is guaranteed
-     * that [PlaguBot] will be in list of plugins to be loaded by [StartLauncherPlugin]
+     * Starts the application using raw JSON and a launcher config, optionally overriding PlaguBot config.
+     *
+     * Behavior:
+     * - If [PlaguBot] is not present in [config.plugins], injects it into the plugins list
+     * - Optionally merges [plaguBotConfig] into [json]
+     * - Delegates to [StartLauncherPlugin.start] and returns the lifecycle [Job]
+     *
+     * @param json Raw JSON that may contain both launcher and PlaguBot configs
+     * @param config Parsed launcher configuration
+     * @param plaguBotConfig Optional typed PlaguBot config to merge/add
+     * @return Job representing the bot lifecycle
      */
-    suspend fun start(initialJson: JsonObject): Job {
-        val initialConfig = defaultJsonFormat.decodeFromJsonElement(dev.inmo.micro_utils.startup.launcher.Config.serializer(), initialJson)
-
+    suspend fun start(
+        json: JsonObject,
+        config: dev.inmo.micro_utils.startup.launcher.Config,
+        plaguBotConfig: Config? = null
+    ): Job {
         KSLog.i("Config has been read")
 
         // Adding of PlaguBot when it absent in config
-        val (resultJson, resultConfig) = if (PlaguBot in initialConfig.plugins) {
+        val (resultJson, resultConfig) = if (PlaguBot in config.plugins) {
             KSLog.i("Initial config contains PlaguBot, pass config as is to StartLauncherPlugin")
-            initialJson to initialConfig
+            json to config
         } else {
             KSLog.i("Start fixing of PlaguBot absence. If PlaguBot has been skipped by some reason, use dev.inmo.micro_utils.startup.launcher.main as startup point or StartLauncherPlugin directly")
+
+            val encodedPlaguBotConfig = plaguBotConfig ?.let {
+                defaultJsonFormat.encodeToJsonElement(Config.serializer(), it).jsonObject
+            } ?: JsonObject(emptyMap())
+
             val resultJson = JsonObject(
-                initialJson + Pair("plugins", JsonArray(initialJson["plugins"]!!.jsonArray + JsonPrimitive(PlaguBot::class.qualifiedName!!)))
+                encodedPlaguBotConfig + JsonObject(
+                    json + Pair(
+                        "plugins",
+                        JsonArray(
+                            (json["plugins"] as? JsonArray ?: JsonArray(emptyList())) + JsonPrimitive(PlaguBot::class.qualifiedName!!)
+                        )
+                    )
+                )
             )
             val resultConfig = defaultJsonFormat.decodeFromJsonElement(dev.inmo.micro_utils.startup.launcher.Config.serializer(), resultJson)
             resultJson to resultConfig
@@ -151,9 +221,91 @@ object PlaguBot : Plugin {
     }
 
     /**
-     * Accepts single argument in [args] which will be interpreted as [File] path with [StartLauncherPlugin]
-     * configuration content. After reading of that file as [JsonObject] will pass it in [start] with [JsonObject] as
-     * argument
+     * Starts the application using typed launcher config and typed PlaguBot config.
+     *
+     * Behavior:
+     * - Merges both configs into a single JSON
+     * - Ensures [PlaguBot] is present in plugins list
+     * - Delegates to [start] that accepts JSON and launcher config
+     *
+     * @param pluginsConfig Launcher configuration
+     * @param plaguBotConfig Typed PlaguBot configuration
+     * @return Job representing the bot lifecycle
+     */
+    suspend fun start(
+        pluginsConfig: dev.inmo.micro_utils.startup.launcher.Config,
+        plaguBotConfig: Config
+    ): Job {
+        val json = JsonObject(
+            defaultJsonFormat.encodeToJsonElement(
+                dev.inmo.micro_utils.startup.launcher.Config.serializer(),
+                pluginsConfig
+            ).jsonObject + defaultJsonFormat.encodeToJsonElement(
+                Config.serializer(),
+                plaguBotConfig
+            ).jsonObject
+        )
+        val pluginsConfig = if (pluginsConfig.plugins.contains(PlaguBot)) {
+            pluginsConfig
+        } else {
+            pluginsConfig.copy(
+                plugins = pluginsConfig.plugins + PlaguBot,
+            )
+        }
+
+        return start(json, pluginsConfig)
+    }
+
+    /**
+     * Starts the application using raw JSON and a typed PlaguBot config.
+     *
+     * Behavior:
+     * - Encodes [plaguBotConfig] and merges it into [initialJson]
+     * - Delegates to [start] that takes a JSON only
+     *
+     * @param initialJson Initial JSON to start from
+     * @param plaguBotConfig Typed PlaguBot configuration that will be encoded and merged
+     * @return Job representing the bot lifecycle
+     */
+    suspend fun start(
+        initialJson: JsonObject,
+        plaguBotConfig: Config
+    ): Job {
+        val encodedPlaguBotConfig = defaultJsonFormat.encodeToJsonElement(Config.serializer(), plaguBotConfig).jsonObject
+
+        return start(
+            JsonObject(initialJson + encodedPlaguBotConfig)
+        )
+    }
+
+    /**
+     * Starts the plugins system using [StartLauncherPlugin.start].
+     *
+     * Parsing notes:
+     * - [initialJson] is decoded into launcher config
+     * - If [PlaguBot] is missing from the plugins list, it will be added automatically
+     *
+     * By using this method it is guaranteed that [PlaguBot] will be included into the set of plugins to launch.
+     *
+     * @param initialJson Raw JSON that includes launcher configuration (and optionally PlaguBot config)
+     * @return Job representing the bot lifecycle
+     */
+    suspend fun start(initialJson: JsonObject): Job {
+        val initialConfig = defaultJsonFormat.decodeFromJsonElement(dev.inmo.micro_utils.startup.launcher.Config.serializer(), initialJson)
+
+        return start(initialJson, initialConfig)
+    }
+
+    /**
+     * Starts the application from CLI arguments.
+     *
+     * Expects:
+     * - Exactly one argument: path to a file with JSON configuration
+     *
+     * The file is read, parsed as [JsonObject], and passed to [start(JsonObject)].
+     *
+     * @param args Command-line arguments; first element is a path to the config file
+     * @return Job representing the bot lifecycle
      */
     suspend fun start(args: Array<String>): Job {
         KSLog.default = KSLog("PlaguBot")
