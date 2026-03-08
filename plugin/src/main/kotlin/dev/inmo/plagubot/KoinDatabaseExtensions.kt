@@ -1,6 +1,6 @@
 package dev.inmo.plagubot
 
-import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.v1.jdbc.Database
 import org.koin.core.Koin
 import org.koin.core.scope.Scope
 

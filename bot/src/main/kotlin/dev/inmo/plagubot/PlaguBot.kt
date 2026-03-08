@@ -2,6 +2,7 @@ package dev.inmo.plagubot
 
 import dev.inmo.kslog.common.*
 import dev.inmo.micro_utils.common.Warning
+import dev.inmo.micro_utils.coroutines.runCatchingLogging
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
@@ -107,7 +108,7 @@ object PlaguBot : Plugin {
      */
     override suspend fun BehaviourContextWithFSM<State>.setupBotPlugin(koin: Koin) {
         koin.plugins.filter { it !== this@PlaguBot }.forEach { plugin ->
-            runCatchingSafely {
+            runCatchingLogging(logger = logger) {
                 logger.i("Start loading of $plugin")
                 with(plugin) {
                     setupBotPlugin(koin)

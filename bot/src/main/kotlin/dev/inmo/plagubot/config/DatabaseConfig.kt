@@ -5,8 +5,8 @@ import dev.inmo.kslog.common.logger
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.transactions.transactionManager
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.transactions.transactionManager
 import org.koin.core.scope.Scope
 import org.sqlite.JDBC
 import java.lang.Exception
