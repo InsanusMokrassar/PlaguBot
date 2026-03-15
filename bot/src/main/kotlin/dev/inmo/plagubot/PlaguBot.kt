@@ -3,7 +3,6 @@ package dev.inmo.plagubot
 import dev.inmo.kslog.common.*
 import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.coroutines.runCatchingLogging
-import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
 import dev.inmo.micro_utils.fsm.common.managers.*
@@ -16,6 +15,10 @@ import dev.inmo.tgbotapi.bot.ktor.telegramBot
 import dev.inmo.tgbotapi.extensions.api.webhook.deleteWebhook
 import dev.inmo.tgbotapi.extensions.behaviour_builder.*
 import dev.inmo.tgbotapi.extensions.utils.updates.retrieving.startGettingOfUpdatesByLongPolling
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.HttpClientEngineFactory
+import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
@@ -58,6 +61,19 @@ object PlaguBot : Plugin {
      * @param params Raw JSON params of the bot part of the configuration
      */
     override fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) {
+        val config = scope.get<Config>()
+        if (config.proxy != null) {
+            val initialClient = config.proxy.createDefaultClient()
+            val clientFromHttpClientEngine = scope.getOrNull<HttpClientEngine>() ?.let {
+                HttpClient(it)
+            }
+            val clientFromKoin = clientFromHttpClientEngine ?: (scope.getOrNull<HttpClientEngineFactory<*>>() ?: OkHttp).let {
+                HttpClient(it)
+            }
+            this@setupBotClient.client = initialClient.config {
+                install(clientFromKoin)
+            }
+        }
         scope.plugins.filter { it !== this@PlaguBot }.forEach {
             with(it) {
                 setupBotClient(scope, params)

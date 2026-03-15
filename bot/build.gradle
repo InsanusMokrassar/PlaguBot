@@ -22,6 +22,8 @@ dependencies {
     api libs.microutils.koin
     api libs.microutils.startup.launcher
 
+    api libs.ktor.engine.okhttp
+
     api libs.sqlite
 
     testImplementation libs.kt.test.junit

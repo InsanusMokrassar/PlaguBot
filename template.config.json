@@ -10,6 +10,13 @@
     }
   },
   "botToken": "1234567890:ABCDEFGHIJKLMNOP_qrstuvwxyz12345678",
+  "proxy": {
+    "host": "127.0.0.1",
+    "port": 1080,
+    "username": "OPTIONAL username",
+    "password": "OPTIONAL password",
+    "_note": "THIS OBJECT IS OPTIONAL"
+  },
   "plugins": [
     "dev.inmo.plagubot.HelloPlugin"
   ],
