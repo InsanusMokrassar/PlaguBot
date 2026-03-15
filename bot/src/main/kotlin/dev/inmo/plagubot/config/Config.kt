@@ -14,5 +14,6 @@ data class Config(
     @SerialName("database")
     val databaseConfig: DatabaseConfig = DatabaseConfig(),
     val botApiServer: String = telegramBotAPIDefaultUrl,
-    val testServer: Boolean = false
+    val testServer: Boolean = false,
+    val proxy: ProxyConfig? = null,
 )

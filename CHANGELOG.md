@@ -2,6 +2,9 @@
 
 ## 11.1.0
 
+* `Bot`:
+  * Add opportunity to setup proxy
+
 ## 11.0.0
 
 * `Versions`:
