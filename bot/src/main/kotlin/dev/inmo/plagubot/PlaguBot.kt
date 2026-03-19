@@ -62,17 +62,19 @@ object PlaguBot : Plugin {
      */
     override fun KtorRequestsExecutorBuilder.setupBotClient(scope: Scope, params: JsonObject) {
         val config = scope.get<Config>()
-        if (config.proxy != null) {
+        val clientFromHttpClientEngine = scope.getOrNull<HttpClientEngine>() ?.let {
+            HttpClient(it)
+        }
+        val clientFromKoin = clientFromHttpClientEngine ?: (scope.getOrNull<HttpClientEngineFactory<*>>() ?: OkHttp).let {
+            HttpClient(it)
+        }
+        this@setupBotClient.client = if (config.proxy != null) {
             val initialClient = config.proxy.createDefaultClient()
-            val clientFromHttpClientEngine = scope.getOrNull<HttpClientEngine>() ?.let {
-                HttpClient(it)
-            }
-            val clientFromKoin = clientFromHttpClientEngine ?: (scope.getOrNull<HttpClientEngineFactory<*>>() ?: OkHttp).let {
-                HttpClient(it)
-            }
-            this@setupBotClient.client = initialClient.config {
+            initialClient.config {
                 install(clientFromKoin)
             }
+        } else {
+            clientFromKoin
         }
         scope.plugins.filter { it !== this@PlaguBot }.forEach {
             with(it) {
