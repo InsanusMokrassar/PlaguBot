@@ -2,6 +2,9 @@
 
 ## 11.1.1
 
+* `Bot`:
+  * Logic of creating `HttpClient` now works even if proxy is ommited
+
 ## 11.1.0
 
 * `Bot`:
