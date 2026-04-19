@@ -1,5 +1,17 @@
 # Changelog
 
+## 11.2.0
+
+* `Versions`:
+    * `kotlin`: `2.3.20`
+    * `serialization`: `1.11.0`
+    * `microutils`: `0.29.2`
+    * `tgbotapi`: `33.1.0`
+    * `ktor`: `3.4.2`
+    * `exposed`: `1.2.0`
+    * `sqlite`: `3.53.0.0`
+    * `koin`: `4.2.1`
+
 ## 11.1.1
 
 * `Bot`:
