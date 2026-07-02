@@ -1,5 +1,19 @@
 # Changelog
 
+## 12.0.0
+
+* `Versions`:
+    * `kotlin`: `2.3.21`
+    * `coroutines`: `1.11.0`
+    * `microutils`: `0.30.0`
+    * `tgbotapi`: `35.1.0`
+    * `ktor`: `3.5.1`
+    * `ksp`: `2.3.9`
+    * `exposed`: `1.3.1`
+    * `sqlite`: `3.53.2.0`
+    * `koin`: `4.2.2`
+    * `nmcp`: `1.6.0`
+
 ## 11.2.0
 
 * `Versions`:
