@@ -2,6 +2,26 @@
 
 ## 13.0.0
 
+### Dependencies
+
+* Update org.jetbrains.kotlin:kotlin-gradle-plugin from 2.3.21 to 2.4.10
+* Update org.jetbrains.kotlin:kotlin-serialization from 2.3.21 to 2.4.10
+* Update org.jetbrains.kotlin:kotlin-stdlib from 2.3.21 to 2.4.10
+* Update org.jetbrains.kotlin:kotlin-test-junit from 2.3.21 to 2.4.10
+* Update dev.inmo:tgbotapi from 35.1.0 to 36.0.0
+* Update dev.inmo:tgbotapi.behaviour_builder.fsm from 35.1.0 to 36.0.0
+* Update dev.inmo:micro_utils.koin from 0.30.0 to 0.30.1
+* Update dev.inmo:micro_utils.koin.generator from 0.30.0 to 0.30.1
+* Update dev.inmo:micro_utils.repos.exposed from 0.30.0 to 0.30.1
+* Update dev.inmo:micro_utils.startup.launcher from 0.30.0 to 0.30.1
+* Update dev.inmo:micro_utils.startup.plugin from 0.30.0 to 0.30.1
+* Update org.jetbrains.exposed:exposed-jdbc from 1.3.1 to 1.4.0
+* Update org.xerial:sqlite-jdbc from 3.53.2.0 to 3.53.2.1
+* Update io.ktor:ktor-client-okhttp from 3.5.1 to 3.5.2
+* Update com.google.devtools.ksp:symbol-processing-gradle-plugin from 2.3.9 to 2.3.11
+* Update com.gradleup.nmcp.aggregation from 1.6.0 to 1.6.1
+* Update com.gradleup.nmcp.aggregation:com.gradleup.nmcp.aggregation.gradle.plugin from 1.6.0 to 1.6.1
+
 ## 12.0.0
 
 * `Versions`:
