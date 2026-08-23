@@ -2,6 +2,15 @@
 
 ## 13.0.0
 
+* `Versions`:
+    * `microutils`: `0.30.1`
+    * `tgbotapi`: `36.1.0`
+    * `ktor`: `3.5.2`
+    * `ksp`: `2.3.11`
+    * `exposed`: `1.4.0`
+    * `sqlite`: `3.53.2.1`
+    * `nmcp`: `1.6.1`
+
 ## 12.0.0
 
 * `Versions`:
