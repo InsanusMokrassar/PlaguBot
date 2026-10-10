@@ -10,7 +10,7 @@
     * `exposed`: `1.5.1`
     * `sqlite`: `3.53.4.0`
     * `nmcp`: `1.6.2`
-    * `tgbotapi`: `38.0.0`
+    * `tgbotapi`: `37.1.0`
 * `Bot`:
   * Use Gradle's `application.mainClass` property for the existing entry point.
 
