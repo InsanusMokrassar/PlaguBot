@@ -11,8 +11,8 @@
     * `sqlite`: `3.53.2.1` -> `3.53.4.0`
     * `nmcp`: `1.6.1` -> `1.6.2`
     * `tgbotapi`: `36.1.0` -> `38.0.0`
-
-* `Bot`: Use Gradle's `application.mainClass` property for the existing entry point.
+* `Bot`:
+  * Use Gradle's `application.mainClass` property for the existing entry point.
 
 ## 13.0.0
 
