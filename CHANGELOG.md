@@ -2,6 +2,18 @@
 
 ## 14.0.0
 
+* `Versions`:
+    * `kt`: `2.3.21` -> `2.4.21`
+    * `gradle-wrapper`: `8.13` -> `9.7.0`
+    * `microutils`: `0.30.1` -> `0.32.0`
+    * `ktor`: `3.5.2` -> `3.6.0`
+    * `jb-exposed`: `1.4.0` -> `1.5.1`
+    * `sqlite`: `3.53.2.1` -> `3.53.4.0`
+    * `nmcp`: `1.6.1` -> `1.6.2`
+    * `tgbotapi`: `36.1.0` -> `38.0.0`
+
+* `Bot`: Use Gradle's `application.mainClass` property for the existing entry point.
+
 ## 13.0.0
 
 * `Versions`:
