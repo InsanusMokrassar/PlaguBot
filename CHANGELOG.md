@@ -1,5 +1,19 @@
 # Changelog
 
+## 14.0.0
+
+* `Versions`:
+    * `kotlin`: `2.4.21`
+    * `gradle-wrapper`: `9.7.0`
+    * `microutils`: `0.32.0`
+    * `ktor`: `3.6.0`
+    * `exposed`: `1.5.1`
+    * `sqlite`: `3.53.4.0`
+    * `nmcp`: `1.6.2`
+    * `tgbotapi`: `37.1.0`
+* `Bot`:
+  * Use Gradle's `application.mainClass` property for the existing entry point.
+
 ## 13.0.0
 
 * `Versions`:
