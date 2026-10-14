@@ -1,15 +1,22 @@
+interface InjectedExecOps {
+    @Inject //@javax.inject.Inject
+    ExecOperations getExecOps()
+}
 private String getCurrentVersionChangelog() {
     OutputStream changelogDataOS = new ByteArrayOutputStream()
-    exec {
+
+    def injected = project.objects.newInstance(InjectedExecOps)
+    injected.execOps.exec {
         commandLine 'chmod', "+x", './changelog_parser.sh'
     }
-    exec {
+    injected.execOps.exec {
         standardOutput = changelogDataOS
         commandLine './changelog_parser.sh', "${project.version}", 'CHANGELOG.md'
     }
 
     return changelogDataOS.toString().trim()
 }
+
 
 def githubTokenVariableName = "GITHUB_RELEASE_TOKEN"
 def githubTokenVariableFromEnv = System.getenv(githubTokenVariableName)
@@ -24,8 +31,6 @@ if (secretFile.exists() || project.hasProperty(githubTokenVariableName) || (gith
 
     githubRelease {
         token githubReleaseToken
-
-        releaseAssets.from('bot/build/distributions')
 
         owner = "InsanusMokrassar"
         repo = "PlaguBot"
